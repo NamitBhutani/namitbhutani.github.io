@@ -10,7 +10,7 @@ export function SocialLinks() {
   return (
     <div className="flex gap-4">
       <Button variant="outline" size="icon">
-        <a href="https://github.com/namitbhut" aria-label="GitHub">
+        <a href="https://github.com/namitbhutani" aria-label="GitHub">
           <HugeiconsIcon icon={GithubIcon} size={20} />
         </a>
       </Button>

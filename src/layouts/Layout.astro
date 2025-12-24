@@ -7,7 +7,8 @@ interface Props {
     description?: string;
 }
 
-const { title = "Portfolio", description = "Portfolio" } = Astro.props;
+const { title = "Portfolio", description = "Graphics Programmer Portfolio" } =
+    Astro.props;
 ---
 
 <!doctype html>
@@ -19,8 +20,39 @@ const { title = "Portfolio", description = "Portfolio" } = Astro.props;
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="generator" content={Astro.generator} />
         <title>{title}</title>
+
+        <script is:inline>
+            const getThemePreference = () => {
+                if (
+                    typeof localStorage !== "undefined" &&
+                    localStorage.getItem("theme")
+                ) {
+                    return localStorage.getItem("theme");
+                }
+                return window.matchMedia("(prefers-color-scheme: dark)").matches
+                    ? "dark"
+                    : "light";
+            };
+            const isDark = getThemePreference() === "dark";
+            document.documentElement.classList[isDark ? "add" : "remove"](
+                "dark",
+            );
+
+            if (typeof localStorage !== "undefined") {
+                const observer = new MutationObserver(() => {
+                    const isDark =
+                        document.documentElement.classList.contains("dark");
+                    localStorage.setItem("theme", isDark ? "dark" : "light");
+                });
+                observer.observe(document.documentElement, {
+                    attributes: true,
+                    attributeFilter: ["class"],
+                });
+            }
+        </script>
     </head>
-    <body>
+
+    <body class="font-sans antialiased bg-background text-foreground">
         <slot />
     </body>
 </html>

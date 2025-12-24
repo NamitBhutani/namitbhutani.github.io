@@ -10,17 +10,32 @@ export function SocialLinks() {
   return (
     <div className="flex gap-4">
       <Button variant="outline" size="icon">
-        <a href="https://github.com/namitbhutani" aria-label="GitHub">
+        <a
+          href="https://github.com/namitbhutani"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub"
+        >
           <HugeiconsIcon icon={GithubIcon} size={20} />
         </a>
       </Button>
       <Button variant="outline" size="icon">
-        <a href="https://linkedin.com/in/namitbhutani" aria-label="LinkedIn">
+        <a
+          href="https://linkedin.com/in/namitbhutani"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn"
+        >
           <HugeiconsIcon icon={Linkedin02Icon} size={20} />
         </a>
       </Button>
       <Button variant="outline" size="icon">
-        <a href="mailto:namit.bhut@gmail.com" aria-label="Email">
+        <a
+          href="mailto:namit.bhut@gmail.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Email"
+        >
           <HugeiconsIcon icon={Mail01Icon} size={20} />
         </a>
       </Button>

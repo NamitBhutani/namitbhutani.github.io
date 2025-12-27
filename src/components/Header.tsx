@@ -5,6 +5,7 @@ import {
   CodeIcon,
   BookOpen01Icon,
   UserIcon,
+  Download01Icon,
 } from "@hugeicons/core-free-icons";
 import { ModeToggle } from "./ModeToggle";
 import { Button } from "@/components/ui/button";
@@ -22,9 +23,7 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
       <div className="container mx-auto flex h-14 items-center justify-between px-4 sm:px-8">
         <a href="/" className="mr-6 flex items-center space-x-2">
-          <span className="font-bold font-mono text-xl text-primary">
-            Namit Bhutani
-          </span>
+          <span className="font-bold font-mono text-xl text-primary">~/ </span>
         </a>
 
         <div className="flex items-center gap-4">
@@ -39,8 +38,8 @@ export function Header() {
                 {item.label}
               </a>
             ))}
-            <Button variant="outline" className="ml-4 font-mono text-xs">
-              RESUME.pdf
+            <Button variant="outline" className="ml-4 font-mono text-sm">
+              Resume <HugeiconsIcon icon={Download01Icon} size={20} />{" "}
             </Button>
           </nav>
           <ModeToggle />

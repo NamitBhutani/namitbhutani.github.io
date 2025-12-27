@@ -7,11 +7,7 @@ import { ResearchCard } from "../components/ResearchCard";
 import { SocialLinks } from "../components/SocialLinks";
 import { Button } from "@/components/ui/button";
 import { HugeiconsIcon } from "@hugeicons/react";
-import {
-    ArrowRight01Icon,
-    Download01Icon,
-    UniversityIcon,
-} from "@hugeicons/core-free-icons";
+import { Download01Icon, UniversityIcon } from "@hugeicons/core-free-icons";
 
 // Data
 const projects = [
@@ -45,7 +41,7 @@ const experience = [
             "C++",
             "Systems Programming",
             "Optimization",
-            "Blender Internal",
+            "Blender Internals",
         ],
     },
     {
@@ -78,17 +74,27 @@ const experience = [
 
                 {/* Headline */}
                 <h1 class="text-4xl md:text-6xl font-bold tracking-tight">
-                    Hi, I'm <span class="text-primary">Namit Bhutani</span>.
+                    Hi, I'm <span class="text-primary">Namit</span> 👋
                 </h1>
 
                 {/* Bio */}
                 <p
-                    class="text-xl text-muted-foreground max-w-160 leading-relaxed"
+                    class="text-xl text-muted-foreground max-w-205 leading-relaxed"
                 >
-                    <span class="text-foreground font-medium"
-                        >CS Undergrad at BITS Pilani</span
-                    > building real-time graphics systems. I explore the intersection
-                    of rendering algorithms, GPU compute, and Machine Learning.
+                    I'm currently working on real-time rendering and simulation
+                    systems from{" "}
+                    <span class="text-foreground font-semibold">India</span>.
+                    I've contributed code that ships in{" "}
+                    <a
+                        href="https://www.blender.org/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-primary hover:underline underline-offset-2"
+                    >
+                        Blender.</a
+                    >
+                    Turns out making pixels go fast is what keeps me going. When I'm
+                    not doing that, I enjoy gaming, hitting the gym and playing badminton.
                 </p>
 
                 {/* Education */}
@@ -101,14 +107,17 @@ const experience = [
                             size={20}
                             className="text-primary"
                         />
-                        <span class="font-semibold text-foreground"
-                            >BITS Pilani</span
+                        <a
+                            href="https://www.bits-pilani.ac.in/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="font-semibold text-foreground underline decoration-primary/80 underline-offset-5 hover:decoration-primary hover:text-primary transition-colors"
                         >
+                            BITS Pilani
+                        </a>
                     </div>
                     <span class="hidden sm:inline text-border">|</span>
-                    <div class="text-sm font-mono">
-                        B.E. CS & M.Sc. Economics (2022-27)
-                    </div>
+                    <div class="text-sm font-mono">B.E. Computer Science</div>
                     <span class="hidden sm:inline text-border">|</span>
                     <!-- <div
                     class="inline-flex items-center gap-1.5 bg-primary/10 px-2 py-0.5 rounded text-xs font-bold text-primary"
@@ -117,23 +126,10 @@ const experience = [
                 </div> -->
                 </div>
 
-                {/* Buttons */}
                 <div class="flex gap-4 mt-4">
-                    <Button size="lg" className="gap-2">
-                        View Projects <HugeiconsIcon
-                            icon={ArrowRight01Icon}
-                            size={20}
-                        />
-                    </Button>
                     <Button size="lg" variant="outline" className="gap-2">
-                        Download Resume <HugeiconsIcon
-                            icon={Download01Icon}
-                            size={20}
-                        />
+                        Resume <HugeiconsIcon icon={Download01Icon} size={20} />
                     </Button>
-                </div>
-
-                <div class="mt-8">
                     <SocialLinks client:load />
                 </div>
             </section>
@@ -158,12 +154,10 @@ const experience = [
                     />
                     <ResearchCard
                         title="LegalTree – AI-Powered Legal Discourse"
-                        role="Researcher"
+                        role="Undergraduate Researcher"
                         date="Aug 2024 - Nov 2024"
-                        advisors="BITS Pilani"
                         points={[
                             "Paper under review for discourse relation extraction.",
-                            "Engineered LLM prompts for 85% accuracy in semantic triplet generation.",
                             "Built RAG pipeline for 10,000+ legal documents.",
                         ]}
                     />

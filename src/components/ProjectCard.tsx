@@ -46,13 +46,13 @@ export function ProjectCard({
         </div>
       </CardHeader>
       <CardContent className="flex-1">
-        <CardDescription className="text-foreground/80 leading-relaxed">
+        <CardDescription className="text-card-foreground leading-relaxed">
           {description}
         </CardDescription>
       </CardContent>
       <CardFooter className="flex gap-2">
         {github && (
-          <Button variant="outline" size="sm" className="min-w-20">
+          <Button variant="outline" size="sm">
             <a
               href={github}
               target="_blank"
@@ -66,8 +66,14 @@ export function ProjectCard({
         )}
         {link && (
           <Button size="sm">
-            <a href={link} target="_blank" rel="noopener noreferrer">
-              <HugeiconsIcon icon={Link01Icon} size={20} /> Demo
+            <a
+              href={link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2"
+            >
+              <HugeiconsIcon icon={Link01Icon} size={20} />
+              Demo
             </a>
           </Button>
         )}

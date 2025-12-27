@@ -25,7 +25,7 @@ export function ExperienceCard({
         </span>
       </div>
       <div className="text-primary font-mono text-sm mb-4">{company}</div>
-      <ul className="list-disc list-outside ml-4 space-y-2 text-sm text-muted-foreground mb-4">
+      <ul className="list-disc list-outside ml-4 space-y-2 text-sm text-foreground mb-4">
         {description.map((item, i) => (
           <li key={i}>{item}</li>
         ))}

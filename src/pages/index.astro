@@ -5,9 +5,10 @@ import { ProjectCard } from "../components/ProjectCard";
 import { ExperienceCard } from "../components/ExperienceCard";
 import { ResearchCard } from "../components/ResearchCard";
 import { SocialLinks } from "../components/SocialLinks";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Download01Icon, UniversityIcon } from "@hugeicons/core-free-icons";
+import { cn } from "@/lib/utils";
 
 // Data
 const projects = [
@@ -127,9 +128,14 @@ const experience = [
                 </div>
 
                 <div class="flex gap-4 mt-4">
-                    <Button size="lg" variant="outline" className="gap-2">
+                    <a
+                        href="/Resume.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class={cn(buttonVariants({ variant: "outline", size: "lg" }), "gap-2")}
+                    >
                         Resume <HugeiconsIcon icon={Download01Icon} size={20} />
-                    </Button>
+                    </a>
                     <SocialLinks client:load />
                 </div>
             </section>
@@ -192,7 +198,7 @@ const experience = [
             <div
                 class="container mx-auto px-4 flex justify-between items-center text-sm text-muted-foreground"
             >
-                <p>&copy; 2025 Namit Bhutani (IntelloManiac)</p>
+                <p>&copy; 2026 Namit Bhutani (IntelloManiac)</p>
                 <SocialLinks client:load />
             </div>
         </footer>

@@ -8,8 +8,9 @@ import {
   Download01Icon,
 } from "@hugeicons/core-free-icons";
 import { ModeToggle } from "./ModeToggle";
-import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { buttonVariants } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
+import { cn } from "@/lib/utils";
 
 export function Header() {
   const navItems = [
@@ -38,31 +39,55 @@ export function Header() {
                 {item.label}
               </a>
             ))}
-            <Button variant="outline" className="ml-4 font-mono text-sm">
-              Resume <HugeiconsIcon icon={Download01Icon} size={20} />{" "}
-            </Button>
+            <a
+              href="/Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(buttonVariants({ variant: "outline", size: "default" }), "ml-4 font-mono text-sm")}
+            >
+              Resume <HugeiconsIcon icon={Download01Icon} size={20} />
+            </a>
           </nav>
           <ModeToggle />
           <div className="md:hidden">
             <Sheet>
               <SheetTrigger>
-                <Button variant="ghost" size="icon">
+                <button className={cn(buttonVariants({ variant: "ghost", size: "icon" }))}>
                   <HugeiconsIcon icon={Menu01Icon} size={20} />
                   <span className="sr-only">Toggle Menu</span>
-                </Button>
+                </button>
               </SheetTrigger>
-              <SheetContent side="right">
+              <SheetContent side="right" className="p-6 w-72">
                 <nav className="flex flex-col space-y-4 mt-8">
                   {navItems.map((item) => (
-                    <a
+                    <SheetClose
                       key={item.href}
-                      href={item.href}
-                      className="flex items-center gap-2 text-lg font-medium"
+                      render={
+                        <a
+                          href={item.href}
+                          className="flex items-center gap-2 text-lg font-medium transition-colors hover:text-primary"
+                        />
+                      }
                     >
                       <HugeiconsIcon icon={item.icon} size={20} />
                       {item.label}
-                    </a>
+                    </SheetClose>
                   ))}
+                  <SheetClose
+                    render={
+                      <a
+                        href="/Resume.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={cn(
+                          buttonVariants({ variant: "outline", size: "default" }),
+                          "mt-4 font-mono text-sm w-full"
+                        )}
+                      />
+                    }
+                  >
+                    Resume <HugeiconsIcon icon={Download01Icon} size={20} />
+                  </SheetClose>
                 </nav>
               </SheetContent>
             </Sheet>

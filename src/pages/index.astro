@@ -1,204 +1,173 @@
 ---
+import fs from "node:fs";
+import path from "node:path";
 import Layout from "../layouts/Layout.astro";
 import { Header } from "../components/Header";
 import { ProjectCard } from "../components/ProjectCard";
 import { ExperienceCard } from "../components/ExperienceCard";
 import { ResearchCard } from "../components/ResearchCard";
 import { SocialLinks } from "../components/SocialLinks";
-import { Button, buttonVariants } from "@/components/ui/button";
+import PublicationItem from "../components/PublicationItem.astro";
+import { buttonVariants } from "@/components/ui/button";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Download01Icon, UniversityIcon } from "@hugeicons/core-free-icons";
+import { File01Icon, Mail01Icon, Mortarboard01Icon } from "@hugeicons/core-free-icons";
 import { cn } from "@/lib/utils";
+import {
+    profile,
+    education,
+    news,
+    publications,
+    research,
+    experience,
+    projects,
+} from "../data/profile";
 
-// Data
-const projects = [
-    {
-        title: "procLand",
-        description:
-            "GPU-accelerated 3D terrain generator using OpenGL compute shaders. Implemented Marching Cubes on GPU with optimized SSBO pipeline rendering 100K+ polygons.",
-        tags: ["C++", "OpenGL", "Compute Shaders", "GLSL"],
-        github: "https://github.com/NamitBhutani/procland",
-    },
-    {
-        title: "radialGL",
-        description:
-            "Interactive 2D tree visualization engine implementing the radial layout algorithm. Features real-time rerooting and smooth animations.",
-        tags: ["C++", "OpenGL", "ImGui", "Algorithms"],
-        github: "https://github.com/NamitBhutani/radialgl",
-    },
-];
-
-const experience = [
-    {
-        role: "Google Summer of Code Contributor",
-        company: "Blender Foundation",
-        period: "Jun 2025 – Sep 2025",
-        description: [
-            "Optimized Blender’s sculpting performance for >1M vertex meshes.",
-            "Implemented spatial mesh reordering improving cache coherency by 35%.",
-            "Reduced undo memory overhead by 60% using zstd compression.",
-        ],
-        skills: [
-            "C++",
-            "Systems Programming",
-            "Optimization",
-            "Blender Internals",
-        ],
-    },
-    {
-        role: "Software Engineering Intern",
-        company: "Vidcentum Technologies",
-        period: "May 2024 – Jul 2024",
-        description: [
-            "Built high-throughput async API for ML retrieval.",
-            "Achieved <100ms latency on 50K+ documents using Meilisearch.",
-        ],
-        skills: ["Python", "Backend", "API Design"],
-    },
-];
+// Drop a square photo at public/headshot.jpg and it appears in the hero automatically.
+const hasPhoto = fs.existsSync(path.join(process.cwd(), "public", "headshot.jpg"));
+const edu = education[0];
 ---
 
-<Layout title="Namit Bhutani | Portfolio">
+<Layout>
     <Header client:load />
 
     <main class="flex flex-col min-h-screen">
         <div class="w-full max-w-4xl mx-auto">
+            {/* HERO */}
             <section
                 id="home"
-                class="container mx-auto px-4 py-10 md:py-20 flex flex-col justify-center items-start gap-6"
+                class="px-4 sm:px-6 pt-10 pb-12 md:pt-16 md:pb-16 grid gap-8 md:grid-cols-[1fr_auto] items-start"
             >
-                <div
-                    class="inline-flex items-center rounded-lg bg-muted px-3 py-1 text-sm font-medium text-primary animate-in fade-in slide-in-from-bottom-4 duration-1000"
-                >
-                    GSoC '25 @ Blender Foundation
-                </div>
-
-                {/* Headline */}
-                <h1 class="text-4xl md:text-6xl font-bold tracking-tight">
-                    Hi, I'm <span class="text-primary">Namit</span> 👋
-                </h1>
-
-                {/* Bio */}
-                <p
-                    class="text-xl text-muted-foreground max-w-205 leading-relaxed"
-                >
-                    I'm currently working on real-time rendering and simulation
-                    systems from{" "}
-                    <span class="text-foreground font-semibold">India</span>.
-                    I've contributed code that ships in{" "}
-                    <a
-                        href="https://www.blender.org/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="text-primary hover:underline underline-offset-2"
+                <div class="flex flex-col gap-5 min-w-0">
+                    <div
+                        class="inline-flex w-fit items-center gap-2 bg-primary/10 px-3 py-1 text-sm font-medium text-primary font-mono"
                     >
-                        Blender.</a
-                    >
-                    Turns out making pixels go fast is what keeps me going. When I'm
-                    not doing that, I enjoy gaming, hitting the gym and playing badminton.
-                </p>
-
-                {/* Education */}
-                <div
-                    class="flex flex-col sm:flex-row gap-3 sm:items-center text-muted-foreground border-l-2 border-primary/40 pl-4 py-1 mt-2"
-                >
-                    <div class="flex items-center gap-2">
-                        <HugeiconsIcon
-                            icon={UniversityIcon}
-                            size={20}
-                            className="text-primary"
-                        />
-                        <a
-                            href="https://www.bits-pilani.ac.in/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="font-semibold text-foreground underline decoration-primary/80 underline-offset-5 hover:decoration-primary hover:text-primary transition-colors"
-                        >
-                            BITS Pilani
-                        </a>
+                        <span class="size-2 rounded-full bg-primary animate-pulse"></span>
+                        {profile.status}
                     </div>
-                    <span class="hidden sm:inline text-border">|</span>
-                    <div class="text-sm font-mono">B.E. Computer Science</div>
-                    <span class="hidden sm:inline text-border">|</span>
-                    <!-- <div
-                    class="inline-flex items-center gap-1.5 bg-primary/10 px-2 py-0.5 rounded text-xs font-bold text-primary"
-                >
-                    CGPA: 8.76
-                </div> -->
+
+                    <h1 class="text-4xl md:text-5xl font-bold tracking-tight">
+                        {profile.name}
+                    </h1>
+
+                    <p class="text-lg text-muted-foreground leading-relaxed max-w-2xl">
+                        I'm a final-year undergraduate at
+                        <span class="text-foreground font-medium">BITS Pilani</span>
+                        interested in computer graphics broadly. My
+                        first-author paper on
+                        <a href="/photoelasticity" class="text-primary underline underline-offset-4 decoration-primary/40 hover:decoration-primary">real-time spectral photoelasticity</a>,
+                        with Prof. Tathagata Ray and Prof. Sumanta Pattanaik (UCF), appears at
+                        <span class="text-foreground font-medium">Pacific Graphics 2026</span>.
+                        Right now I'm at the
+                        <span class="text-foreground font-medium">Dynamic Graphics Project lab, University of Toronto</span>,
+                        working on interactive Gaussian splatting.
+                        Through Google Summer of Code, I also shipped sculpting performance
+                        work in
+                        <a href="https://www.blender.org/" target="_blank" rel="noopener noreferrer" class="text-primary underline underline-offset-4 decoration-primary/40 hover:decoration-primary">Blender</a>.
+                        I enjoy problems where light, physics and GPU performance meet.
+                    </p>
+
+                    <div class="flex items-start gap-3 text-sm text-muted-foreground border-l-2 border-primary/40 pl-4 py-1">
+                        <HugeiconsIcon icon={Mortarboard01Icon} size={20} className="text-primary shrink-0 mt-0.5" />
+                        <div class="leading-relaxed">
+                            <a href={edu.url} target="_blank" rel="noopener noreferrer" class="font-semibold text-foreground hover:text-primary">{edu.school}</a>
+                            <div>{edu.degree}</div>
+                            <div class="font-mono text-xs mt-0.5">{edu.period} · {edu.gpa}</div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap gap-3 items-center mt-1">
+                        <a href="/Namit_Bhutani_CV.pdf" target="_blank" rel="noopener noreferrer" class={cn(buttonVariants({ variant: "default", size: "lg" }), "gap-2")}>
+                            <HugeiconsIcon icon={File01Icon} size={18} /> CV
+                        </a>
+                        {profile.scholar && (
+                            <a href={profile.scholar} target="_blank" rel="noopener noreferrer" class={cn(buttonVariants({ variant: "outline", size: "lg" }), "gap-2")}>
+                                <HugeiconsIcon icon={Mortarboard01Icon} size={18} /> Google Scholar
+                            </a>
+                        )}
+                        <a href={`mailto:${profile.email}`} class={cn(buttonVariants({ variant: "outline", size: "lg" }), "gap-2")}>
+                            <HugeiconsIcon icon={Mail01Icon} size={18} /> {profile.email}
+                        </a>
+                        <SocialLinks client:load showEmail={false} />
+                    </div>
                 </div>
 
-                <div class="flex gap-4 mt-4">
-                    <a
-                        href="/Resume.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class={cn(buttonVariants({ variant: "outline", size: "lg" }), "gap-2")}
-                    >
-                        Resume <HugeiconsIcon icon={Download01Icon} size={20} />
-                    </a>
-                    <SocialLinks client:load />
+                {hasPhoto && (
+                    <img
+                        src="/headshot.jpg"
+                        alt="Photo of Namit Bhutani"
+                        class="order-first md:order-last size-28 md:size-40 rounded-full object-cover ring-4 ring-primary/15"
+                    />
+                )}
+            </section>
+
+            {/* NEWS */}
+            <section id="news" class="px-4 sm:px-6 py-10 border-t">
+                <h2 class="text-2xl font-bold mb-5 font-mono">News</h2>
+                <ul class="space-y-2.5">
+                    {news.map((n) => (
+                        <li class="grid grid-cols-[5.5rem_1fr] gap-3 text-sm leading-relaxed">
+                            <span class="font-mono text-muted-foreground">{n.date}</span>
+                            <span set:html={n.html} />
+                        </li>
+                    ))}
+                </ul>
+            </section>
+
+            {/* PUBLICATIONS */}
+            <section id="publications" class="px-4 sm:px-6 py-12 border-t">
+                <h2 class="text-2xl font-bold mb-8 font-mono">Publications</h2>
+                <div class="space-y-10">
+                    {publications.map((p) => <PublicationItem pub={p} />)}
                 </div>
             </section>
 
-            {/* RESEARCH SECTION */}
-            <section
-                id="research"
-                class="container mx-auto px-4 py-16 border-t"
-            >
-                <h2 class="text-3xl font-bold mb-8 font-mono">Research</h2>
+            {/* RESEARCH */}
+            <section id="research" class="px-4 sm:px-6 py-12 border-t">
+                <h2 class="text-2xl font-bold mb-8 font-mono">Research</h2>
                 <div class="grid gap-6 md:grid-cols-2">
-                    <ResearchCard
-                        title="Real-Time Rendering of Polarized Light"
-                        role="Undergraduate Researcher"
-                        date="Aug 2025 - Present"
-                        advisors="Prof. Tathagata Ray & Prof. Sumanta Pattanaik (UCF)"
-                        points={[
-                            "Developing real-time photoelasticity pipeline for VR.",
-                            "Implemented Enfeldt & Goswami polarization model in Unity shaders.",
-                            "Extended model for transmission through dielectrics.",
-                        ]}
-                    />
-                    <ResearchCard
-                        title="LegalTree – AI-Powered Legal Discourse"
-                        role="Undergraduate Researcher"
-                        date="Aug 2024 - Nov 2024"
-                        points={[
-                            "Paper under review for discourse relation extraction.",
-                            "Built RAG pipeline for 10,000+ legal documents.",
-                        ]}
-                    />
+                    {research.map((r) => <ResearchCard {...r} />)}
                 </div>
             </section>
 
-            {/* EXPERIENCE SECTION */}
-            <section
-                id="experience"
-                class="container mx-auto px-4 py-16 border-t"
-            >
-                <h2 class="text-3xl font-bold mb-8 font-mono">Experience</h2>
+            {/* EXPERIENCE */}
+            <section id="experience" class="px-4 sm:px-6 py-12 border-t">
+                <h2 class="text-2xl font-bold mb-8 font-mono">Experience</h2>
                 <div class="max-w-3xl">
                     {experience.map((exp) => <ExperienceCard {...exp} />)}
                 </div>
             </section>
 
-            {/* PROJECTS SECTION */}
-            <section
-                id="projects"
-                class="container mx-auto px-4 py-16 border-t"
-            >
-                <h2 class="text-3xl font-bold mb-8 font-mono">Projects</h2>
-                <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {/* PROJECTS */}
+            <section id="projects" class="px-4 sm:px-6 py-12 border-t">
+                <h2 class="text-2xl font-bold mb-8 font-mono">Projects</h2>
+                <div class="grid gap-6 md:grid-cols-2">
                     {projects.map((proj) => <ProjectCard {...proj} />)}
+                </div>
+            </section>
+
+            {/* CONTACT */}
+            <section id="contact" class="px-4 sm:px-6 py-12 border-t">
+                <div class="bg-primary/10 p-6 md:p-8">
+                    <h2 class="text-2xl font-bold font-mono">Get in touch</h2>
+                    <p class="mt-3 leading-relaxed max-w-2xl">
+                        Always happy to talk about graphics research, or about my application
+                        for graduate programs starting in 2027.
+                    </p>
+                    <div class="mt-5 flex flex-wrap gap-3">
+                        <a href={`mailto:${profile.email}`} class={cn(buttonVariants({ variant: "default", size: "lg" }), "gap-2")}>
+                            <HugeiconsIcon icon={Mail01Icon} size={18} /> Email me
+                        </a>
+                        <a href="/Namit_Bhutani_CV.pdf" target="_blank" rel="noopener noreferrer" class={cn(buttonVariants({ variant: "outline", size: "lg" }), "gap-2")}>
+                            <HugeiconsIcon icon={File01Icon} size={18} /> CV
+                        </a>
+                    </div>
                 </div>
             </section>
         </div>
 
-        {/* FOOTER */}
         <footer class="border-t py-8 mt-auto">
-            <div
-                class="container mx-auto px-4 flex justify-between items-center text-sm text-muted-foreground"
-            >
-                <p>&copy; 2026 Namit Bhutani (IntelloManiac)</p>
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row gap-4 justify-between items-center text-sm text-muted-foreground">
+                <p>&copy; 2026 {profile.name}</p>
                 <SocialLinks client:load />
             </div>
         </footer>

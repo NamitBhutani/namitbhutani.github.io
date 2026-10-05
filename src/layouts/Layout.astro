@@ -1,14 +1,22 @@
 ---
+import "@fontsource-variable/inter";
 import "@fontsource-variable/jetbrains-mono";
 import "../styles/global.css";
 
 interface Props {
     title?: string;
     description?: string;
+    image?: string;
 }
 
-const { title = "Portfolio", description = "About me & my interests!" } =
-    Astro.props;
+const site = "https://namitbhutani.github.io";
+const {
+    title = "Namit Bhutani | Computer Graphics",
+    description = "Namit Bhutani: undergraduate researcher at BITS Pilani working across computer graphics: rendering, Gaussian splatting and GPU performance. Seeking MS/PhD positions for 2027.",
+    image = "/og.jpg",
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, site).href;
+const ogImage = new URL(image, site).href;
 ---
 
 <!doctype html>
@@ -18,8 +26,21 @@ const { title = "Portfolio", description = "About me & my interests!" } =
         <meta name="description" content={description} />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="canonical" href={canonical} />
         <meta name="generator" content={Astro.generator} />
+        <meta name="author" content="Namit Bhutani" />
         <title>{title}</title>
+
+        <!-- Link previews (email clients, LinkedIn, Slack, WhatsApp) -->
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={canonical} />
+        <meta property="og:image" content={ogImage} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={ogImage} />
 
         <script is:inline>
             const getThemePreference = () => {

@@ -7,7 +7,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { GithubIcon, Link01Icon } from "@hugeicons/core-free-icons";
 
@@ -30,7 +31,7 @@ export function ProjectCard({
   return (
     <Card className="flex flex-col h-full hover:border-primary/50 transition-colors">
       <CardHeader>
-        <CardTitle className="font-mono text-xl text-primary">
+        <CardTitle className="font-mono text-lg text-primary">
           {title}
         </CardTitle>
         <div className="flex flex-wrap gap-2 mt-2">
@@ -52,30 +53,26 @@ export function ProjectCard({
       </CardContent>
       <CardFooter className="flex gap-2">
         {github && (
-          <Button variant="outline" size="sm">
-            <a
-              href={github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2"
-            >
-              <HugeiconsIcon icon={GithubIcon} size={20} />
-              Code
-            </a>
-          </Button>
+          <a
+            href={github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(buttonVariants({ variant: "outline", size: "sm" }), "gap-2")}
+          >
+            <HugeiconsIcon icon={GithubIcon} size={18} />
+            Code
+          </a>
         )}
         {link && (
-          <Button size="sm">
-            <a
-              href={link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2"
-            >
-              <HugeiconsIcon icon={Link01Icon} size={20} />
-              Demo
-            </a>
-          </Button>
+          <a
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(buttonVariants({ size: "sm" }), "gap-2")}
+          >
+            <HugeiconsIcon icon={Link01Icon} size={18} />
+            Demo
+          </a>
         )}
       </CardFooter>
     </Card>

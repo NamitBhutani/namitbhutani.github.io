@@ -1,0 +1,95 @@
+---
+import type { Publication } from "../data/profile";
+
+interface Props {
+    pub: Publication;
+}
+
+const { pub } = Astro.props;
+const me = "Namit Bhutani";
+---
+
+<article class={pub.video || pub.image ? "grid gap-5 md:grid-cols-[240px_1fr] items-start" : "block"}>
+    {
+        pub.video || pub.image ? (
+            <a
+                href={pub.links[0]?.href ?? "#"}
+                class="block overflow-hidden ring-1 ring-foreground/10 bg-black"
+                aria-label={`Open ${pub.title}`}
+            >
+                {pub.video ? (
+                    <video
+                        src={pub.video}
+                        poster={pub.image}
+                        autoplay
+                        muted
+                        loop
+                        playsinline
+                        preload="metadata"
+                        class="w-full aspect-[16/9] object-cover"
+                    />
+                ) : (
+                    <img
+                        src={pub.image}
+                        alt=""
+                        class="w-full aspect-[16/9] object-cover"
+                        loading="lazy"
+                    />
+                )}
+            </a>
+        ) : null
+    }
+
+    <div class="min-w-0">
+        <h3 class="text-lg font-semibold leading-snug">
+            {
+                pub.links[0] ? (
+                    <a href={pub.links[0].href} class="hover:text-primary transition-colors">
+                        {pub.title}
+                    </a>
+                ) : (
+                    pub.title
+                )
+            }
+        </h3>
+        <p class="mt-1.5 text-sm text-muted-foreground leading-relaxed">
+            {
+                pub.authors.map((a, i) => (
+                    <>
+                        {a === me ? <span class="font-semibold text-foreground underline decoration-primary/60 underline-offset-4">{a}</span> : a}
+                        {i < pub.authors.length - 1 ? ", " : ""}
+                    </>
+                ))
+            }
+        </p>
+        <p class="mt-1 text-sm">
+            <span class="italic">{pub.venue}</span>, {pub.year}
+            {pub.note && <span class="ml-2 inline-block font-mono text-xs px-1.5 py-0.5 bg-primary/10 text-primary align-middle">{pub.note}</span>}
+        </p>
+        {pub.summary && <p class="mt-3 text-sm leading-relaxed">{pub.summary}</p>}
+        <div class="mt-3 flex flex-wrap gap-2 items-center">
+            {
+                pub.links.map((l) => (
+                    <a
+                        href={l.href}
+                        target={l.href.startsWith("http") ? "_blank" : undefined}
+                        rel={l.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                        class="font-mono text-xs px-2.5 py-1 ring-1 ring-foreground/15 hover:ring-primary hover:text-primary transition-colors"
+                    >
+                        {l.label}
+                    </a>
+                ))
+            }
+            {
+                pub.bibtex && (
+                    <details class="group w-full">
+                        <summary class="inline-block cursor-pointer select-none font-mono text-xs px-2.5 py-1 ring-1 ring-foreground/15 hover:ring-primary hover:text-primary transition-colors list-none">
+                            BibTeX
+                        </summary>
+                        <pre class="mt-2 overflow-x-auto text-xs leading-relaxed p-3 bg-muted font-mono">{pub.bibtex}</pre>
+                    </details>
+                )
+            }
+        </div>
+    </div>
+</article>

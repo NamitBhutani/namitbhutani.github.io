@@ -9,6 +9,11 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   integrations: [react()],
 
+  // The CV is a LaTeX PDF (source: ~/life-sort/practice-school/cv_academic.tex).
+  redirects: {
+    '/cv': '/Namit_Bhutani_CV.pdf',
+  },
+
   vite: {
     plugins: [tailwindcss()]
   }

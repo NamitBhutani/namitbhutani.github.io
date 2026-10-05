@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "@fontsource-variable/jetbrains-mono";
+@import "@fontsource-variable/inter";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -12,13 +13,14 @@
     --popover: oklch(1 0 0);
     --popover-foreground: oklch(0.2 0.02 240);
 
-    --primary: oklch(0.7 0.15 300);
+    /* Darker mauve in light mode so links and accents pass WCAG AA contrast */
+    --primary: oklch(0.52 0.17 300);
     --primary-foreground: oklch(0.98 0 0);
 
     --secondary: oklch(0.92 0.01 240);
     --secondary-foreground: oklch(0.2 0.02 240);
     --muted: oklch(0.92 0.01 240);
-    --muted-foreground: oklch(0.5 0.03 240);
+    --muted-foreground: oklch(0.45 0.03 240);
 
     --accent: oklch(0.92 0.01 240);
     --accent-foreground: oklch(0.2 0.02 240);
@@ -26,7 +28,7 @@
     --destructive: oklch(0.6 0.18 25);
     --border: oklch(0.85 0.02 240);
     --input: oklch(0.85 0.02 240);
-    --ring: oklch(0.7 0.15 300);
+    --ring: oklch(0.52 0.17 300);
 
     /* Charts */
     --chart-1: oklch(0.65 0.18 30); /* Red */
@@ -102,7 +104,8 @@
 }
 
 @theme inline {
-    --font-sans: "JetBrains Mono Variable", monospace;
+    --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+    --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
     --color-background: var(--background);
     --color-foreground: var(--foreground);
     --color-card: var(--card);
@@ -152,5 +155,7 @@
     }
     html {
         @apply font-sans;
+        scroll-behavior: smooth;
+        scroll-padding-top: 4.5rem;
     }
 }

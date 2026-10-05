@@ -1,10 +1,10 @@
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   Menu01Icon,
-  Home01Icon,
+  MicroscopeIcon,
   CodeIcon,
   BookOpen01Icon,
-  UserIcon,
+  Briefcase01Icon,
   Download01Icon,
 } from "@hugeicons/core-free-icons";
 import { ModeToggle } from "./ModeToggle";
@@ -13,18 +13,20 @@ import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/s
 import { cn } from "@/lib/utils";
 
 export function Header() {
+  // Absolute anchors so the menu also works from /cv and /photoelasticity.
   const navItems = [
-    { label: "Home", href: "#home", icon: Home01Icon },
-    { label: "Projects", href: "#projects", icon: CodeIcon },
-    { label: "Research", href: "#research", icon: BookOpen01Icon },
-    { label: "Experience", href: "#experience", icon: UserIcon },
+    { label: "Publications", href: "/#publications", icon: BookOpen01Icon },
+    { label: "Research", href: "/#research", icon: MicroscopeIcon },
+    { label: "Experience", href: "/#experience", icon: Briefcase01Icon },
+    { label: "Projects", href: "/#projects", icon: CodeIcon },
   ];
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
       <div className="container mx-auto flex h-14 items-center justify-between px-4 sm:px-8">
         <a href="/" className="mr-6 flex items-center space-x-2">
-          <span className="font-bold font-mono text-xl text-primary">~/ </span>
+          <span className="font-bold font-mono text-lg text-primary">~/</span>
+          <span className="font-semibold tracking-tight">Namit Bhutani</span>
         </a>
 
         <div className="flex items-center gap-4">
@@ -40,12 +42,10 @@ export function Header() {
               </a>
             ))}
             <a
-              href="/Resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(buttonVariants({ variant: "outline", size: "default" }), "ml-4 font-mono text-sm")}
+              href="/Namit_Bhutani_CV.pdf" target="_blank" rel="noopener noreferrer"
+              className={cn(buttonVariants({ variant: "outline", size: "default" }), "ml-2 font-mono text-sm")}
             >
-              Resume <HugeiconsIcon icon={Download01Icon} size={20} />
+              CV <HugeiconsIcon icon={Download01Icon} size={18} />
             </a>
           </nav>
           <ModeToggle />
@@ -76,9 +76,7 @@ export function Header() {
                   <SheetClose
                     render={
                       <a
-                        href="/Resume.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        href="/Namit_Bhutani_CV.pdf" target="_blank" rel="noopener noreferrer"
                         className={cn(
                           buttonVariants({ variant: "outline", size: "default" }),
                           "mt-4 font-mono text-sm w-full"
@@ -86,7 +84,7 @@ export function Header() {
                       />
                     }
                   >
-                    Resume <HugeiconsIcon icon={Download01Icon} size={20} />
+                    CV <HugeiconsIcon icon={Download01Icon} size={18} />
                   </SheetClose>
                 </nav>
               </SheetContent>

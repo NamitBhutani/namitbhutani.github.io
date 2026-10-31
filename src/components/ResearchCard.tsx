@@ -4,6 +4,8 @@ interface ResearchCardProps {
   date: string;
   points: string[];
   advisors?: string;
+  video?: string;
+  poster?: string;
 }
 
 // Plain entry, same shape as the CV: title and dates, role and advisors, then points.
@@ -13,6 +15,8 @@ export function ResearchCard({
   advisors,
   date,
   points,
+  video,
+  poster,
 }: ResearchCardProps) {
   return (
     <article>
@@ -29,6 +33,17 @@ export function ResearchCard({
           <li key={i}>{p}</li>
         ))}
       </ul>
+      {video && (
+        <video
+          className="mt-4 w-full rounded border border-border"
+          src={video}
+          poster={poster}
+          controls
+          muted
+          playsInline
+          preload="none"
+        />
+      )}
     </article>
   );
 }

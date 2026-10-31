@@ -127,6 +127,8 @@ export const research = [
     role: "Research Intern",
     date: "Jun 2026 – Present",
     advisors: "Prof. Karan Singh",
+    video: "/media/dgp-structural-editing.mp4",
+    poster: "/media/dgp-structural-editing.jpg",
     points: [
       "Designing and building a library of structure models and relations that measure their parameters from a Gaussian-splat capture, so edits repeat captured units instead of stretching them; geometric gates judge each edit and an optimiser refines appearance and hole fills (in progress).",
       "Testing where a language-model agent helps most (editing front end, segmentation) so the tool needs minimal user input.",
@@ -148,10 +150,12 @@ export const research = [
   {
     title: "LegalTree: Discourse Parsing for Indian Law",
     role: "Undergraduate Researcher",
-    date: "Sep 2024 – Dec 2025",
+    date: "Aug 2024 – Jul 2026",
+    advisors: "Prof. Dipanjan Chakraborty & Prof. Prajna Upadhyay",
     points: [
-      "Discourse relation extraction for Indian legal text; published in Artificial Intelligence and Law (2026).",
-      "Built a RAG pipeline over 10,000+ legal documents.",
+      "Discourse parsing for Indian legal text; published in Artificial Intelligence and Law (2026).",
+      "Built the group's demo comparing a fine-tuned T5 parser with GPT-4 and GPT-4o prompting: interactive discourse trees, Graphene triplet extraction, and retrieval QA over 1,000+ legal documents.",
+      "For the journal revision, built the delinearization evaluation (BLEU-4, BERTScore, ROUGE) showing that linearized trees keep all of a sentence's information.",
     ],
   },
 ];

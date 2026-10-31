@@ -137,7 +137,7 @@ export const research = [
   {
     title: "Real-Time Rendering of Polarized Light",
     role: "Undergraduate Researcher",
-    date: "Aug 2025 – Jan 2026",
+    date: "Aug 2025 – May 2026",
     advisors: "Prof. Tathagata Ray (BITS Pilani) & Prof. Sumanta Pattanaik (UCF)",
     points: [
       "Real-time spectral photoelasticity renderer in NVIDIA Falcor; first-author paper at Pacific Graphics 2026.",

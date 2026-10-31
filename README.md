@@ -17,12 +17,11 @@ from it. The CV is a separate LaTeX PDF (see below).
 - **Google Scholar:** paste your profile URL into `profile.scholar` in `src/data/profile.ts`.
 - **AI & Law paper link:** add `{ label: "Springer", href: "https://doi.org/..." }` to its
   `links` array in `src/data/profile.ts`.
-- **CV PDF:** the CV is LaTeX, source `~/life-sort/practice-school/cv_academic.tex`
-  (black and white, one page). Rebuild and copy:
+- **CV PDF:** the CV is LaTeX, source `~/life-sort/masters-immigration/sop/cv/cv-grad-2027.tex`.
+  Rebuild and copy:
 
-      ~/life-sort/practice-school/build.sh cv_academic.tex
-      cp ~/life-sort/practice-school/cv_academic.pdf public/Namit_Bhutani_CV.pdf
-      cp public/Namit_Bhutani_CV.pdf public/Resume.pdf   # keeps old /Resume.pdf links working
+      ~/life-sort/masters-immigration/sop/cv/build.sh
+      cp ~/life-sort/masters-immigration/sop/cv/cv-grad-2027.pdf public/Namit_Bhutani_CV.pdf
 
   `/cv` redirects to the PDF (see `astro.config.mjs`).
 

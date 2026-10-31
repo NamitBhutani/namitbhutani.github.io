@@ -29,9 +29,9 @@ export function ProjectCard({
   github,
 }: ProjectProps) {
   return (
-    <Card className="flex flex-col h-full hover:border-primary/50 transition-colors">
+    <Card className="flex flex-col h-full hover:border-foreground/30 transition-colors">
       <CardHeader>
-        <CardTitle className="font-mono text-lg text-primary">
+        <CardTitle className="text-base font-semibold">
           {title}
         </CardTitle>
         <div className="flex flex-wrap gap-2 mt-2">

@@ -3,7 +3,7 @@
 
 export const profile = {
   name: "Namit Bhutani",
-  status: "Seeking MS/PhD positions for 2027",
+  status: "Applying to PhD and MS programmes for Fall 2027",
   email: "namit.bhut@gmail.com",
   website: "https://namitbhutani.github.io",
   github: "https://github.com/NamitBhutani",
@@ -45,7 +45,7 @@ export const news = [
   },
   {
     date: "Jun 2026",
-    html: 'Joined the <b>Dynamic Graphics Project (DGP)</b> lab at the University of Toronto, working on structure-aware editing of captured 3D scenes.',
+    html: 'Joined the <b>Dynamic Graphics Project (DGP)</b> lab at the University of Toronto, working on structural editing of captured 3D scenes.',
   },
   {
     date: "Sep 2025",
@@ -84,7 +84,6 @@ export const publications: Publication[] = [
     links: [
       { label: "Project page", href: "/photoelasticity" },
       { label: "Paper (DOI)", href: "https://doi.org/10.2312/pg.20261054" },
-      { label: "Paper (PDF)", href: "/papers/bhutani2026photoelasticity.pdf" },
       { label: "Code", href: "https://github.com/NamitBhutani/realtime-photoelasticity-falcor" },
       { label: "Video", href: "/media/pg26-load-demo.mp4" },
     ],
@@ -124,12 +123,13 @@ export const publications: Publication[] = [
 
 export const research = [
   {
-    title: "Structure-Aware Editing of Captured Scenes (DGP Lab, University of Toronto)",
+    title: "Structural Editing of Captured Scenes (DGP Lab, University of Toronto)",
     role: "Research Intern",
     date: "Jun 2026 – Present",
     advisors: "Prof. Karan Singh",
     points: [
-      "Editing Gaussian-splat captures so that an edit respects how the scene is built, instead of stretching or tearing it (in progress).",
+      "Designing and building a library of structure models and relations that measure their parameters from a Gaussian-splat capture, so edits repeat captured units instead of stretching them; geometric gates judge each edit and an optimiser refines appearance and hole fills (in progress).",
+      "Testing where a language-model agent helps most (editing front end, segmentation) so the tool needs minimal user input.",
       "Started from a Houdini plugin for brush-based splat painting and selection over 100K+ splats at 60 FPS (RTX 3070), with C++ ray picking through a custom BVH.",
       "Distilled multi-view DINOv3 features into per-splat embeddings; unsupervised segmentation with similarity queries under 50 ms.",
     ],
@@ -162,9 +162,9 @@ export const experience = [
     company: "Blender Foundation",
     period: "Jun 2025 – Sep 2025",
     description: [
-      "Optimized Blender's sculpting performance for meshes with over 1M vertices.",
-      "Implemented spatial mesh reordering, improving cache coherency by 35%.",
-      "Reduced undo memory overhead by 60% using zstd compression.",
+      "Sculpt-mode performance on meshes with over 1M vertices, mentored by Hans Goudey; shipped in Blender 5.0 after core-developer review.",
+      "Spatially reordered mesh data for cache locality and cached the BVH built during reordering, so entering sculpt mode on a 2.6M-vertex mesh went from 170 ms to 25 ms, and BVH rebuilds became 2.4× faster.",
+      "ZSTD-compressed sculpt undo data in the background, making it at least 2× smaller (Blender 5.0 release notes), and added undo memory tracking to the Python API and performance tests.",
     ],
     skills: ["C++", "Performance", "Blender internals"],
   },

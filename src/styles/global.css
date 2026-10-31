@@ -1,111 +1,90 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "@fontsource-variable/jetbrains-mono";
-@import "@fontsource-variable/inter";
+@import "@fontsource/ibm-plex-sans/400.css";
+@import "@fontsource/ibm-plex-sans/400-italic.css";
+@import "@fontsource/ibm-plex-sans/500.css";
+@import "@fontsource/ibm-plex-sans/600.css";
+@import "@fontsource/ibm-plex-sans/700.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
 
 @custom-variant dark (&:is(.dark *));
 
+/* "Ink" theme. Dark is a deep ink-blue night with lamp-gold accents; light is
+   the same on warm paper with ink-blue accents. Colour comes from the live viewport
+   (Viewport.tsx), so the chrome stays quiet. */
 :root {
-    --background: oklch(0.95 0.01 240); /* Latte Base */
-    --foreground: oklch(0.2 0.02 240); /* Latte Text */
-    --card: oklch(1 0 0); /* White Cards */
-    --card-foreground: oklch(0.2 0.02 240);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.2 0.02 240);
-
-    /* Darker mauve in light mode so links and accents pass WCAG AA contrast */
-    --primary: oklch(0.52 0.17 300);
-    --primary-foreground: oklch(0.98 0 0);
-
-    --secondary: oklch(0.92 0.01 240);
-    --secondary-foreground: oklch(0.2 0.02 240);
-    --muted: oklch(0.92 0.01 240);
-    --muted-foreground: oklch(0.45 0.03 240);
-
-    --accent: oklch(0.92 0.01 240);
-    --accent-foreground: oklch(0.2 0.02 240);
-
-    --destructive: oklch(0.6 0.18 25);
-    --border: oklch(0.85 0.02 240);
-    --input: oklch(0.85 0.02 240);
-    --ring: oklch(0.52 0.17 300);
-
-    /* Charts */
-    --chart-1: oklch(0.65 0.18 30); /* Red */
-    --chart-2: oklch(0.75 0.15 80); /* Peach */
-    --chart-3: oklch(0.85 0.15 100); /* Yellow */
-    --chart-4: oklch(0.75 0.15 160); /* Green */
-    --chart-5: oklch(0.7 0.15 300); /* Mauve */
-
-    --radius: 0;
-    --sidebar: oklch(0.98 0 0);
-    --sidebar-foreground: oklch(0.2 0.02 240);
-    --sidebar-primary: oklch(0.7 0.15 300);
-    --sidebar-primary-foreground: oklch(0.98 0 0);
-    --sidebar-accent: oklch(0.92 0.01 240);
-    --sidebar-accent-foreground: oklch(0.2 0.02 240);
-    --sidebar-border: oklch(0.85 0.02 240);
-    --sidebar-ring: oklch(0.7 0.15 300);
+    --background: oklch(0.975 0.007 85);
+    --foreground: oklch(0.22 0.03 262);
+    --card: oklch(0.995 0.003 85);
+    --card-foreground: oklch(0.22 0.03 262);
+    --popover: oklch(0.995 0.003 85);
+    --popover-foreground: oklch(0.22 0.03 262);
+    --primary: oklch(0.46 0.14 262);
+    --primary-foreground: oklch(0.985 0.005 85);
+    --secondary: oklch(0.94 0.01 85);
+    --secondary-foreground: oklch(0.22 0.03 262);
+    --muted: oklch(0.955 0.008 85);
+    --muted-foreground: oklch(0.47 0.025 262);
+    --accent: oklch(0.94 0.01 85);
+    --accent-foreground: oklch(0.22 0.03 262);
+    --destructive: oklch(0.6 0.2 25);
+    --border: oklch(0.885 0.01 85);
+    --input: oklch(0.885 0.01 85);
+    --ring: oklch(0.46 0.14 262);
+    --chart-1: oklch(0.46 0.14 262);
+    --chart-2: oklch(0.7 0.14 200);
+    --chart-3: oklch(0.75 0.15 140);
+    --chart-4: oklch(0.7 0.17 30);
+    --chart-5: oklch(0.65 0.12 300);
+    --radius: 0.25rem;
+    --sidebar: oklch(0.975 0.007 85);
+    --sidebar-foreground: oklch(0.22 0.03 262);
+    --sidebar-primary: oklch(0.46 0.14 262);
+    --sidebar-primary-foreground: oklch(0.985 0.005 85);
+    --sidebar-accent: oklch(0.94 0.01 85);
+    --sidebar-accent-foreground: oklch(0.22 0.03 262);
+    --sidebar-border: oklch(0.885 0.01 85);
+    --sidebar-ring: oklch(0.46 0.14 262);
 }
 
 .dark {
-    /* Base: Pure Black for AMOLED */
-    --background: oklch(0 0 0);
-
-    /* Text: Mocha Text (White-ish Lavender) */
-    --foreground: oklch(0.94 0.02 260);
-
-    /* Card: Mocha Base (Deep Blue-Grey) - slightly darker for AMOLED contrast */
-    --card: oklch(0.13 0.02 260);
-    --card-foreground: oklch(0.94 0.02 260);
-
-    --popover: oklch(0.1 0.02 260);
-    --popover-foreground: oklch(0.94 0.02 260);
-
-    /* Primary: Mocha Mauve (The signature accent) */
-    --primary: oklch(0.77 0.13 300);
-    --primary-foreground: oklch(0.1 0.02 260);
-
-    /* Secondary: Mocha Surface0 */
-    --secondary: oklch(0.2 0.03 260);
-    --secondary-foreground: oklch(0.94 0.02 260);
-
-    /* Muted elements */
-    --muted: oklch(0.15 0.02 260);
-    --muted-foreground: oklch(0.85 0.02 260);
-    /* Accent (Hover states): Mocha Overlay0 */
-    --accent: oklch(0.25 0.03 260);
-    --accent-foreground: oklch(0.94 0.02 260);
-
-    /* Destructive: Mocha Red */
-    --destructive: oklch(0.68 0.18 20);
-
-    /* Border: Mocha Surface1 (Subtle separation) */
-    --border: oklch(0.25 0.03 260);
-    --input: oklch(0.25 0.03 260);
-    --ring: oklch(0.77 0.13 300);
-
-    /* Charts (Mocha Palette) */
-    --chart-1: oklch(0.68 0.18 20); /* Red */
-    --chart-2: oklch(0.75 0.15 55); /* Peach */
-    --chart-3: oklch(0.85 0.15 90); /* Yellow */
-    --chart-4: oklch(0.75 0.15 150); /* Green */
-    --chart-5: oklch(0.77 0.13 300); /* Mauve */
-
-    /* Sidebar specific */
-    --sidebar: oklch(0 0 0);
-    --sidebar-foreground: oklch(0.94 0.02 260);
-    --sidebar-primary: oklch(0.77 0.13 300);
-    --sidebar-primary-foreground: oklch(0.1 0.02 260);
-    --sidebar-accent: oklch(0.13 0.02 260);
-    --sidebar-accent-foreground: oklch(0.94 0.02 260);
-    --sidebar-border: oklch(0.25 0.03 260);
-    --sidebar-ring: oklch(0.77 0.13 300);
+    --background: oklch(0.165 0.02 262);
+    --foreground: oklch(0.95 0.008 85);
+    --card: oklch(0.2 0.022 262);
+    --card-foreground: oklch(0.95 0.008 85);
+    --popover: oklch(0.2 0.022 262);
+    --popover-foreground: oklch(0.95 0.008 85);
+    --primary: oklch(0.78 0.11 235);
+    --primary-foreground: oklch(0.2 0.03 262);
+    --secondary: oklch(0.25 0.022 262);
+    --secondary-foreground: oklch(0.95 0.008 85);
+    --muted: oklch(0.235 0.022 262);
+    --muted-foreground: oklch(0.75 0.02 262);
+    --accent: oklch(0.25 0.022 262);
+    --accent-foreground: oklch(0.95 0.008 85);
+    --destructive: oklch(0.6 0.2 25);
+    --border: oklch(0.31 0.025 262);
+    --input: oklch(0.31 0.025 262);
+    --ring: oklch(0.78 0.11 235);
+    --chart-1: oklch(0.78 0.11 235);
+    --chart-2: oklch(0.7 0.14 200);
+    --chart-3: oklch(0.75 0.15 140);
+    --chart-4: oklch(0.7 0.17 30);
+    --chart-5: oklch(0.65 0.12 300);
+    --sidebar: oklch(0.165 0.02 262);
+    --sidebar-foreground: oklch(0.95 0.008 85);
+    --sidebar-primary: oklch(0.78 0.11 235);
+    --sidebar-primary-foreground: oklch(0.2 0.03 262);
+    --sidebar-accent: oklch(0.25 0.022 262);
+    --sidebar-accent-foreground: oklch(0.95 0.008 85);
+    --sidebar-border: oklch(0.31 0.025 262);
+    --sidebar-ring: oklch(0.78 0.11 235);
 }
 
 @theme inline {
-    --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
-    --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+    --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, monospace;
     --color-background: var(--background);
     --color-foreground: var(--foreground);
     --color-card: var(--card);
@@ -158,4 +137,121 @@
         scroll-behavior: smooth;
         scroll-padding-top: 4.5rem;
     }
+}
+
+/* Viewport shading modes (ShadingToggle.tsx), after Blender's viewport header.
+   Rendered is the normal page; these rules apply only when <html data-shading> is set. */
+
+/* Solid: the page's form without materials, on Blender's grey viewport. */
+@layer components {
+    /* A panel like Blender's properties editor: a header strip, then the body. */
+    .panel {
+        @apply bg-card border border-border;
+    }
+    .panel-h {
+        @apply flex items-center gap-2 px-4 h-9 bg-muted border-b border-border text-sm font-medium select-none;
+    }
+    .panel-h {
+        cursor: pointer;
+    }
+    .panel-h:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: -2px;
+    }
+    /* Collapsing (script in Layout.astro): the header stays, everything after it hides. */
+    .panel.collapsed > :not(.panel-h) {
+        display: none;
+    }
+    .panel.collapsed > .panel-h {
+        border-bottom-color: transparent;
+    }
+    .panel.collapsed > .panel-h::before {
+        transform: rotate(-90deg);
+    }
+    .panel-h::before {
+        transition: transform 150ms ease;
+        content: "";
+        width: 0;
+        height: 0;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 5px solid var(--muted-foreground);
+    }
+    .panel-b {
+        @apply p-5 md:p-6;
+    }
+}
+
+html[data-shading="solid"] {
+    --select: oklch(0.78 0.11 235);
+    --background: oklch(0.34 0 0);
+    --foreground: oklch(0.9 0 0);
+    --card: oklch(0.4 0 0);
+    --card-foreground: oklch(0.9 0 0);
+    --popover: oklch(0.4 0 0);
+    --popover-foreground: oklch(0.9 0 0);
+    --primary: oklch(0.92 0 0);
+    --primary-foreground: oklch(0.25 0 0);
+    --secondary: oklch(0.4 0 0);
+    --secondary-foreground: oklch(0.9 0 0);
+    --muted: oklch(0.39 0 0);
+    --muted-foreground: oklch(0.74 0 0);
+    --accent: oklch(0.42 0 0);
+    --accent-foreground: oklch(0.9 0 0);
+    --border: oklch(0.46 0 0);
+    --input: oklch(0.46 0 0);
+}
+html[data-shading="solid"] :is(img, video) {
+    filter: grayscale(1) contrast(0.45) brightness(1.25);
+}
+
+/* Wireframe: every box drawn as an outline, sections labelled, images replaced by a
+   crossed frame. Hovering an element "selects" it in Blender's selection orange. */
+html[data-shading="wireframe"] {
+    --background: oklch(0.23 0 0);
+    --foreground: oklch(0.86 0 0);
+    --card: transparent;
+    --card-foreground: oklch(0.86 0 0);
+    --popover: oklch(0.23 0 0);
+    --popover-foreground: oklch(0.86 0 0);
+    --primary: oklch(0.86 0 0);
+    --primary-foreground: oklch(0.23 0 0);
+    --secondary: transparent;
+    --secondary-foreground: oklch(0.86 0 0);
+    --muted: transparent;
+    --muted-foreground: oklch(0.66 0 0);
+    --accent: transparent;
+    --accent-foreground: oklch(0.86 0 0);
+    --border: oklch(0.5 0 0);
+    --input: oklch(0.5 0 0);
+    --wire: oklch(0.62 0 0 / 0.4);
+    --select: oklch(0.78 0.11 235);
+}
+html[data-shading="wireframe"] main * {
+    outline: 1px solid var(--wire);
+    outline-offset: -1px;
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+html[data-shading="wireframe"] main *:hover {
+    outline-color: var(--select);
+}
+html[data-shading="wireframe"] main :is(img, video) {
+    object-position: -99999px 0;
+    background-image:
+        linear-gradient(to top right, transparent calc(50% - 0.5px), var(--wire) 50%, transparent calc(50% + 0.5px)),
+        linear-gradient(to top left, transparent calc(50% - 0.5px), var(--wire) 50%, transparent calc(50% + 0.5px)) !important;
+}
+html[data-shading="wireframe"] main section[id] {
+    position: relative;
+}
+html[data-shading="wireframe"] main section[id]::before {
+    content: "section#" attr(id);
+    position: absolute;
+    top: 0.5rem;
+    left: 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.02em;
+    color: var(--select);
 }

@@ -17,14 +17,14 @@ export function ExperienceCard({
 }: ExperienceProps) {
   return (
     <div className="relative pl-8 border-l border-border pb-8 last:pb-0">
-      <div className="absolute top-0 left-0 -translate-x-1/2 w-3 h-3 bg-primary rounded-full" />
+      <div className="absolute top-0 left-0 -translate-x-1/2 w-2.5 h-2.5 bg-foreground/40 rounded-full" />
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
         <h3 className="text-base font-semibold">{role}</h3>
         <span className="font-mono text-xs text-muted-foreground">
           {period}
         </span>
       </div>
-      <div className="text-primary font-mono text-sm mb-3">{company}</div>
+      <div className="text-muted-foreground italic text-sm mb-3">{company}</div>
       <ul className="list-disc list-outside ml-4 space-y-1.5 text-sm text-foreground mb-3 leading-relaxed">
         {description.map((item, i) => (
           <li key={i}>{item}</li>

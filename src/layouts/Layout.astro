@@ -1,6 +1,4 @@
 ---
-import "@fontsource-variable/inter";
-import "@fontsource-variable/jetbrains-mono";
 import "../styles/global.css";
 
 interface Props {
@@ -50,9 +48,8 @@ const ogImage = new URL(image, site).href;
                 ) {
                     return localStorage.getItem("theme");
                 }
-                return window.matchMedia("(prefers-color-scheme: dark)").matches
-                    ? "dark"
-                    : "light";
+                // The viewport look is dark by default; the toggle switches to paper.
+                return "dark";
             };
             const isDark = getThemePreference() === "dark";
             document.documentElement.classList[isDark ? "add" : "remove"](
@@ -75,5 +72,29 @@ const ogImage = new URL(image, site).href;
 
     <body class="font-sans antialiased bg-background text-foreground">
         <slot />
+        <script is:inline>
+            // Every panel header with the drop-down triangle collapses its panel.
+            // Delegated, so it also covers panels rendered by React islands.
+            (() => {
+                const toggle = (h) => {
+                    const panel = h.closest(".panel");
+                    if (!panel) return;
+                    const collapsed = panel.classList.toggle("collapsed");
+                    h.setAttribute("aria-expanded", String(!collapsed));
+                };
+                document.addEventListener("click", (e) => {
+                    const h = e.target.closest?.(".panel-h");
+                    if (!h || e.target.closest("button, a, input, [role=tab]")) return;
+                    toggle(h);
+                });
+                document.addEventListener("keydown", (e) => {
+                    if (e.key !== "Enter" && e.key !== " ") return;
+                    const h = e.target;
+                    if (!(h instanceof Element) || !h.classList.contains("panel-h")) return;
+                    e.preventDefault();
+                    toggle(h);
+                });
+            })();
+        </script>
     </body>
 </html>

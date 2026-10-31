@@ -6,12 +6,16 @@ import { Header } from "../components/Header";
 import { ProjectCard } from "../components/ProjectCard";
 import { ExperienceCard } from "../components/ExperienceCard";
 import { ResearchCard } from "../components/ResearchCard";
-import { SocialLinks } from "../components/SocialLinks";
+import { Viewport } from "../components/Viewport";
 import PublicationItem from "../components/PublicationItem.astro";
-import { buttonVariants } from "@/components/ui/button";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { File01Icon, Mail01Icon, Mortarboard01Icon } from "@hugeicons/core-free-icons";
-import { cn } from "@/lib/utils";
+import {
+    File01Icon,
+    Mail01Icon,
+    Mortarboard01Icon,
+    GithubIcon,
+    Linkedin02Icon,
+} from "@hugeicons/core-free-icons";
 import {
     profile,
     education,
@@ -22,88 +26,101 @@ import {
     projects,
 } from "../data/profile";
 
-// Drop a square photo at public/headshot.jpg and it appears in the hero automatically.
+// Drop a square photo at public/headshot.jpg and it appears in the sidebar automatically.
 const hasPhoto = fs.existsSync(path.join(process.cwd(), "public", "headshot.jpg"));
 const edu = education[0];
+
+const links = [
+    profile.scholar && { href: profile.scholar, label: "Google Scholar", icon: Mortarboard01Icon },
+    { href: `mailto:${profile.email}`, label: profile.email, icon: Mail01Icon },
+    { href: "https://github.com/NamitBhutani", label: "GitHub", icon: GithubIcon },
+    { href: "https://linkedin.com/in/namitbhutani", label: "LinkedIn", icon: Linkedin02Icon },
+].filter(Boolean) as { href: string; label: string; icon: any }[];
 ---
 
 <Layout>
     <Header client:load />
 
-    <main class="flex flex-col min-h-screen">
-        <div class="w-full max-w-4xl mx-auto">
-            {/* HERO */}
-            <section
-                id="home"
-                class="px-4 sm:px-6 pt-10 pb-12 md:pt-16 md:pb-16 grid gap-8 md:grid-cols-[1fr_auto] items-start"
-            >
-                <div class="flex flex-col gap-5 min-w-0">
-                    <div
-                        class="inline-flex w-fit items-center gap-2 bg-primary/10 px-3 py-1 text-sm font-medium text-primary font-mono"
+    <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-10 py-8 lg:py-12 grid gap-8 lg:gap-12 lg:grid-cols-[18rem_1fr]">
+        {/* SIDEBAR: who, status, links. Sticky on wide screens so the CV is always one click away. */}
+        <aside class="lg:sticky lg:top-20 self-start">
+            <div class="panel">
+                <div class="panel-h" tabindex="0" aria-expanded="true">Profile</div>
+                <div class="panel-b space-y-5">
+                    {hasPhoto && (
+                        <img
+                            src="/headshot.jpg"
+                            alt="Photo of Namit Bhutani"
+                            class="w-28 lg:w-full aspect-square object-cover border border-border"
+                        />
+                    )}
+                    <div>
+                        <h1 class="text-3xl font-semibold tracking-tight leading-tight">{profile.name}</h1>
+                        <p class="mt-2 flex items-start gap-2 text-sm text-muted-foreground">
+                            <span class="mt-1.5 size-2 shrink-0 rounded-full bg-primary"></span>
+                            {profile.status}
+                        </p>
+                    </div>
+
+                    <a
+                        href="/Namit_Bhutani_CV.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="flex items-center justify-center gap-2 h-10 bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors"
                     >
-                        <span class="size-2 rounded-full bg-primary animate-pulse"></span>
-                        {profile.status}
-                    </div>
+                        <HugeiconsIcon icon={File01Icon} size={18} /> Curriculum Vitae
+                    </a>
 
-                    <h1 class="text-4xl md:text-5xl font-bold tracking-tight">
-                        {profile.name}
-                    </h1>
+                    <ul class="space-y-2 text-sm">
+                        {links.map((l) => (
+                            <li>
+                                <a
+                                    href={l.href}
+                                    target={l.href.startsWith("http") ? "_blank" : undefined}
+                                    rel={l.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                                    class="flex items-center gap-2.5 text-muted-foreground hover:text-primary transition-colors break-all"
+                                >
+                                    <HugeiconsIcon icon={l.icon} size={16} className="shrink-0" />
+                                    {l.label}
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
 
-                    <p class="text-lg text-muted-foreground leading-relaxed max-w-2xl">
-                        I'm a final-year undergraduate at
-                        <span class="text-foreground font-medium">BITS Pilani</span>
-                        interested in computer graphics broadly. My
-                        first-author paper on
-                        <a href="/photoelasticity" class="text-primary underline underline-offset-4 decoration-primary/40 hover:decoration-primary">real-time spectral photoelasticity</a>,
-                        with Prof. Tathagata Ray and Prof. Sumanta Pattanaik (UCF), was published at
-                        <span class="text-foreground font-medium">Pacific Graphics 2026</span>.
-                        Right now I'm at the
-                        <span class="text-foreground font-medium">Dynamic Graphics Project lab, University of Toronto</span>,
-                        working on structure-aware editing of captured 3D scenes.
-                        Through Google Summer of Code, I also shipped sculpting performance
-                        work in
-                        <a href="https://www.blender.org/" target="_blank" rel="noopener noreferrer" class="text-primary underline underline-offset-4 decoration-primary/40 hover:decoration-primary">Blender</a>.
-                        I enjoy problems where light, physics and GPU performance meet.
-                    </p>
-
-                    <div class="flex items-start gap-3 text-sm text-muted-foreground border-l-2 border-primary/40 pl-4 py-1">
-                        <HugeiconsIcon icon={Mortarboard01Icon} size={20} className="text-primary shrink-0 mt-0.5" />
-                        <div class="leading-relaxed">
-                            <a href={edu.url} target="_blank" rel="noopener noreferrer" class="font-semibold text-foreground hover:text-primary">{edu.school}</a>
-                            <div>{edu.degree}</div>
-                            <div class="font-mono text-xs mt-0.5">{edu.period} · {edu.gpa}</div>
-                        </div>
-                    </div>
-
-                    <div class="flex flex-wrap gap-3 items-center mt-1">
-                        <a href="/Namit_Bhutani_CV.pdf" target="_blank" rel="noopener noreferrer" class={cn(buttonVariants({ variant: "default", size: "lg" }), "gap-2")}>
-                            <HugeiconsIcon icon={File01Icon} size={18} /> CV
-                        </a>
-                        {profile.scholar && (
-                            <a href={profile.scholar} target="_blank" rel="noopener noreferrer" class={cn(buttonVariants({ variant: "outline", size: "lg" }), "gap-2")}>
-                                <HugeiconsIcon icon={Mortarboard01Icon} size={18} /> Google Scholar
-                            </a>
-                        )}
-                        <a href={`mailto:${profile.email}`} class={cn(buttonVariants({ variant: "outline", size: "lg" }), "gap-2")}>
-                            <HugeiconsIcon icon={Mail01Icon} size={18} /> {profile.email}
-                        </a>
-                        <SocialLinks client:load showEmail={false} />
+                    <div class="border-t border-border pt-4 text-sm">
+                        <a href={edu.url} target="_blank" rel="noopener noreferrer" class="font-medium hover:text-primary">{edu.school}</a>
+                        <div class="mt-1 text-muted-foreground leading-snug">{edu.degree}</div>
+                        <div class="mt-1 font-mono text-xs text-muted-foreground">{edu.period} · {edu.gpa}</div>
                     </div>
                 </div>
+            </div>
+        </aside>
 
-                {hasPhoto && (
-                    <img
-                        src="/headshot.jpg"
-                        alt="Photo of Namit Bhutani"
-                        class="order-first md:order-last size-28 md:size-40 rounded-full object-cover ring-4 ring-primary/15"
-                    />
-                )}
+        {/* MAIN */}
+        <main class="min-w-0 space-y-8">
+            <section id="home" class="relative">
+                <p class="pt-1 pb-2 text-lg md:text-xl leading-relaxed text-muted-foreground max-w-4xl">
+                    I'm a final-year undergraduate at
+                    <span class="text-foreground font-medium">BITS Pilani</span>
+                    working on interactive graphics that brings rendering, simulation and modelling together,
+                    through real-time and spectral rendering, inverse procedural modelling of captured scenes
+                    and physics-based simulation, with GPU algorithms and machine learning. My first-author paper on
+                    <a href="/photoelasticity" class="text-primary underline underline-offset-4 decoration-primary/40 hover:decoration-primary">real-time spectral photoelasticity</a>,
+                    with Prof. Tathagata Ray and Prof. Sumanta Pattanaik (UCF), was published at
+                    <span class="text-foreground font-medium">Pacific Graphics 2026</span>.
+                    Right now I'm at the
+                    <span class="text-foreground font-medium">Dynamic Graphics Project lab, University of Toronto</span>,
+                    working on structural editing of captured 3D scenes.
+                    Through Google Summer of Code, I also shipped sculpting performance work in
+                    <a href="https://www.blender.org/" target="_blank" rel="noopener noreferrer" class="text-primary underline underline-offset-4 decoration-primary/40 hover:decoration-primary">Blender</a>.
+                </p>
             </section>
 
-            {/* NEWS */}
-            <section id="news" class="px-4 sm:px-6 py-10 border-t">
-                <h2 class="text-2xl font-bold mb-5 font-mono">News</h2>
-                <ul class="space-y-2.5">
+            <div><Viewport client:visible /></div>
+
+            <section id="news" class="panel">
+                <h2 class="panel-h" tabindex="0" aria-expanded="true">News</h2>
+                <ul class="panel-b space-y-2.5">
                     {news.map((n) => (
                         <li class="grid grid-cols-[5.5rem_1fr] gap-3 text-sm leading-relaxed">
                             <span class="font-mono text-muted-foreground">{n.date}</span>
@@ -113,63 +130,53 @@ const edu = education[0];
                 </ul>
             </section>
 
-            {/* PUBLICATIONS */}
-            <section id="publications" class="px-4 sm:px-6 py-12 border-t">
-                <h2 class="text-2xl font-bold mb-8 font-mono">Publications</h2>
-                <div class="space-y-10">
+            <section id="publications" class="panel">
+                <h2 class="panel-h" tabindex="0" aria-expanded="true">Publications</h2>
+                <div class="panel-b space-y-10">
                     {publications.map((p) => <PublicationItem pub={p} />)}
                 </div>
             </section>
 
-            {/* RESEARCH */}
-            <section id="research" class="px-4 sm:px-6 py-12 border-t">
-                <h2 class="text-2xl font-bold mb-8 font-mono">Research</h2>
-                <div class="grid gap-6 md:grid-cols-2">
+            <section id="research" class="panel">
+                <h2 class="panel-h" tabindex="0" aria-expanded="true">Research</h2>
+                <div class="panel-b space-y-8">
                     {research.map((r) => <ResearchCard {...r} />)}
                 </div>
             </section>
 
-            {/* EXPERIENCE */}
-            <section id="experience" class="px-4 sm:px-6 py-12 border-t">
-                <h2 class="text-2xl font-bold mb-8 font-mono">Experience</h2>
-                <div class="max-w-3xl">
+            <section id="experience" class="panel">
+                <h2 class="panel-h" tabindex="0" aria-expanded="true">Experience</h2>
+                <div class="panel-b">
                     {experience.map((exp) => <ExperienceCard {...exp} />)}
                 </div>
             </section>
 
-            {/* PROJECTS */}
-            <section id="projects" class="px-4 sm:px-6 py-12 border-t">
-                <h2 class="text-2xl font-bold mb-8 font-mono">Projects</h2>
-                <div class="grid gap-6 md:grid-cols-2">
+            <section id="projects" class="panel">
+                <h2 class="panel-h" tabindex="0" aria-expanded="true">Projects</h2>
+                <div class="panel-b grid gap-5 md:grid-cols-2">
                     {projects.map((proj) => <ProjectCard {...proj} />)}
                 </div>
             </section>
 
-            {/* CONTACT */}
-            <section id="contact" class="px-4 sm:px-6 py-12 border-t">
-                <div class="bg-primary/10 p-6 md:p-8">
-                    <h2 class="text-2xl font-bold font-mono">Get in touch</h2>
-                    <p class="mt-3 leading-relaxed max-w-2xl">
+            <section id="contact" class="panel">
+                <h2 class="panel-h" tabindex="0" aria-expanded="true">Get in touch</h2>
+                <div class="panel-b">
+                    <p class="leading-relaxed max-w-2xl">
                         Always happy to talk about graphics research, or about my application
                         for graduate programs starting in 2027.
                     </p>
-                    <div class="mt-5 flex flex-wrap gap-3">
-                        <a href={`mailto:${profile.email}`} class={cn(buttonVariants({ variant: "default", size: "lg" }), "gap-2")}>
-                            <HugeiconsIcon icon={Mail01Icon} size={18} /> Email me
-                        </a>
-                        <a href="/Namit_Bhutani_CV.pdf" target="_blank" rel="noopener noreferrer" class={cn(buttonVariants({ variant: "outline", size: "lg" }), "gap-2")}>
-                            <HugeiconsIcon icon={File01Icon} size={18} /> CV
-                        </a>
-                    </div>
+                    <a
+                        href={`mailto:${profile.email}`}
+                        class="mt-4 inline-flex items-center gap-2 h-10 px-4 bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors"
+                    >
+                        <HugeiconsIcon icon={Mail01Icon} size={18} /> Email me
+                    </a>
                 </div>
             </section>
-        </div>
 
-        <footer class="border-t py-8 mt-auto">
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row gap-4 justify-between items-center text-sm text-muted-foreground">
-                <p>&copy; 2026 {profile.name}</p>
-                <SocialLinks client:load />
-            </div>
-        </footer>
-    </main>
+            <footer class="pt-2 pb-8 text-sm text-muted-foreground font-mono">
+                &copy; 2026 {profile.name}
+            </footer>
+        </main>
+    </div>
 </Layout>

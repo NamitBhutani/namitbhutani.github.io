@@ -33,7 +33,7 @@ export const education = [
 export const news = [
   {
     date: "Oct 2026",
-    html: 'Presenting my paper at <b>Pacific Graphics 2026</b> in Singapore: poster on Thu 8 Oct (board 9), talk on Fri 9 Oct, 11:50, Session A10 in the main auditorium.',
+    html: 'Presented my paper at <b>Pacific Graphics 2026</b> in Singapore (talk in Session A10 and poster). It is now published in the <a href="https://doi.org/10.2312/pg.20261054">Eurographics Digital Library</a>.',
   },
   {
     date: "Oct 2026",
@@ -45,7 +45,7 @@ export const news = [
   },
   {
     date: "Jun 2026",
-    html: 'Joined the <b>Dynamic Graphics Project (DGP)</b> lab at the University of Toronto, working on interactive Gaussian splatting.',
+    html: 'Joined the <b>Dynamic Graphics Project (DGP)</b> lab at the University of Toronto, working on structure-aware editing of captured 3D scenes.',
   },
   {
     date: "Sep 2025",
@@ -83,6 +83,7 @@ export const publications: Publication[] = [
       "Physically based photoelastic fringes at over 120 FPS (1080p, laptop RTX 3070): hero-wavelength sampling of the Jones-calculus integral in one packed march (8.55× faster than the 16-wavelength loop), and a stress-aware history gate that removes TAA ghosting when the load changes.",
     links: [
       { label: "Project page", href: "/photoelasticity" },
+      { label: "Paper (DOI)", href: "https://doi.org/10.2312/pg.20261054" },
       { label: "Paper (PDF)", href: "/papers/bhutani2026photoelasticity.pdf" },
       { label: "Code", href: "https://github.com/NamitBhutani/realtime-photoelasticity-falcor" },
       { label: "Video", href: "/media/pg26-load-demo.mp4" },
@@ -92,7 +93,8 @@ export const publications: Publication[] = [
   author    = {Bhutani, Namit and Ray, Tathagata and Pattanaik, Sumanta},
   booktitle = {Pacific Graphics 2026 -- Conference Papers},
   publisher = {The Eurographics Association},
-  year      = {2026}
+  year      = {2026},
+  doi       = {10.2312/pg.20261054}
 }`,
   },
   {
@@ -122,12 +124,13 @@ export const publications: Publication[] = [
 
 export const research = [
   {
-    title: "Interactive Gaussian Splatting (DGP Lab, University of Toronto)",
+    title: "Structure-Aware Editing of Captured Scenes (DGP Lab, University of Toronto)",
     role: "Research Intern",
     date: "Jun 2026 – Present",
+    advisors: "Prof. Karan Singh",
     points: [
-      "Building a Houdini plugin and standalone app for brush-based splat painting over 100K+ splats at 60 FPS (RTX 3070).",
-      "C++ ray picking over 3D Gaussians with a custom BVH and cached depth-buffer sampling.",
+      "Editing Gaussian-splat captures so that an edit respects how the scene is built, instead of stretching or tearing it (in progress).",
+      "Started from a Houdini plugin for brush-based splat painting and selection over 100K+ splats at 60 FPS (RTX 3070), with C++ ray picking through a custom BVH.",
       "Distilled multi-view DINOv3 features into per-splat embeddings; unsupervised segmentation with similarity queries under 50 ms.",
     ],
   },

@@ -32,7 +32,7 @@ function Caption({ id, total }: { id: SceneId; total: number }) {
   if (id === "splats")
     return (
       <>
-        A small version of the <a className={link} href="#research">Houdini selection tool</a> I build
+        A small version of the <a className={link} href="/#research">Houdini selection tool</a> I build
         at DGP, on {total.toLocaleString()} Gaussian splats sorted back to front every frame. Draw round a
         part and it becomes the subject (magenta), while everything else you picked, at any depth, is its
         context (cyan). Shift-drag adds a part, Ctrl+Shift-drag removes one, and the Paint brush only

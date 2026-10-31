@@ -248,8 +248,12 @@ html[data-shading="wireframe"] main section[id] {
 html[data-shading="wireframe"] main section[id]::before {
     content: "section#" attr(id);
     position: absolute;
-    top: 0.5rem;
-    left: 1.5rem;
+    /* above the panel, in the gap between panels, so it never covers the header */
+    bottom: 100%;
+    left: 0;
+    margin-bottom: 0.3rem;
+    line-height: 1;
+    pointer-events: none;
     font-family: var(--font-mono);
     font-size: 10px;
     letter-spacing: 0.02em;

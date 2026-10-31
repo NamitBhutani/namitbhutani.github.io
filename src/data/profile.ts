@@ -141,6 +141,7 @@ export const research = [
     role: "Undergraduate Researcher",
     date: "Aug 2025 – May 2026",
     advisors: "Prof. Tathagata Ray (BITS Pilani) & Prof. Sumanta Pattanaik (UCF)",
+    demo: { scene: "photo" as const, label: "stress fringes in a loaded disk" },
     points: [
       "Real-time spectral photoelasticity renderer in NVIDIA Falcor; first-author paper at Pacific Graphics 2026.",
       "Developing a real-time photoelasticity pipeline for VR.",
@@ -188,6 +189,7 @@ export const projects = [
       "GPU-accelerated 3D terrain generator using OpenGL compute shaders. Marching Cubes on the GPU with an optimized SSBO pipeline, rendering 100K+ polygons.",
     tags: ["C++", "OpenGL", "Compute Shaders", "GLSL"],
     github: "https://github.com/NamitBhutani/procLan",
+    demo: { scene: "terrain" as const, label: "ray-marched noise terrain" },
   },
   {
     title: "radialGL",

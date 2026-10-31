@@ -387,8 +387,10 @@ const PAINTS: { name: string; c: [number, number, number] }[] = [
 
 type Tool = "select" | "paint";
 
-export function Viewport() {
-  const [scene, setScene] = React.useState<SceneId>("photo");
+export type { SceneId };
+
+export function Viewport({ fixed, embedded = false }: { fixed?: SceneId; embedded?: boolean } = {}) {
+  const [scene, setScene] = React.useState<SceneId>(fixed ?? "photo");
   const [tool, setTool] = React.useState<Tool>("select");
   const [paint, setPaint] = React.useState(0);
   const [stats, setStats] = React.useState<SplatStats>({ subject: 0, context: 0, parts: "" });
@@ -406,6 +408,7 @@ export function Viewport() {
 
   // ?scene=splats|terrain opens that scene (shareable links, screenshots).
   React.useEffect(() => {
+    if (fixed) return;
     const s = new URLSearchParams(window.location.search).get("scene");
     if (s === "photo" || s === "splats" || s === "terrain") setScene(s);
   }, []);
@@ -784,7 +787,8 @@ export function Viewport() {
     "h-6 px-2 text-muted-foreground transition-colors hover:text-foreground aria-pressed:bg-foreground/15 aria-pressed:text-foreground";
 
   return (
-    <section id="viewport" className="panel" aria-label="Interactive viewport">
+    <section id={embedded ? undefined : "viewport"} className={embedded ? "border border-border" : "panel"} aria-label="Interactive viewport">
+      {!embedded && (
       <div className="panel-h pr-1.5" tabIndex={0} aria-expanded="true">
         <span className="flex-1">Viewport</span>
         <div role="tablist" aria-label="Scene" className="flex ring-1 ring-foreground/15">
@@ -795,11 +799,12 @@ export function Viewport() {
           ))}
         </div>
       </div>
+      )}
       <div className="relative overflow-hidden">
         <canvas
           ref={canvasRef}
           className={
-            "block w-full aspect-[4/3] sm:aspect-[16/7] " +
+            "block w-full " + (embedded ? "aspect-[4/3] sm:aspect-[16/6] " : "aspect-[4/3] sm:aspect-[16/7] ") +
             (scene === "splats" ? "cursor-crosshair" : "cursor-grab active:cursor-grabbing")
           }
           style={{ touchAction: "pan-y" }}
@@ -861,7 +866,7 @@ export function Viewport() {
           </div>
         )}
       </div>
-      <p className="px-5 md:px-6 py-3.5 border-t border-border text-sm leading-relaxed text-muted-foreground">
+      <p className={(embedded ? "px-4 py-2.5 text-xs " : "px-5 md:px-6 py-3.5 text-sm ") + "border-t border-border leading-relaxed text-muted-foreground"}>
         <Caption id={scene} total={N_SPLATS} />
       </p>
     </section>

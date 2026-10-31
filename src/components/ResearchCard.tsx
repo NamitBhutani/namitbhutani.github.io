@@ -33,17 +33,6 @@ export function ResearchCard({
           <li key={i}>{p}</li>
         ))}
       </ul>
-      {video && (
-        <video
-          className="mt-4 w-full rounded border border-border"
-          src={video}
-          poster={poster}
-          controls
-          muted
-          playsInline
-          preload="none"
-        />
-      )}
     </article>
   );
 }

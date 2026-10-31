@@ -6,6 +6,7 @@ import { Header } from "../components/Header";
 import { ProjectCard } from "../components/ProjectCard";
 import { ExperienceCard } from "../components/ExperienceCard";
 import { ResearchCard } from "../components/ResearchCard";
+import { LiveDemo } from "../components/LiveDemo";
 import PublicationItem from "../components/PublicationItem.astro";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
@@ -138,7 +139,23 @@ const links = [
             <section id="research" class="panel">
                 <h2 class="panel-h" tabindex="0" aria-expanded="true">Research</h2>
                 <div class="panel-b space-y-8">
-                    {research.map((r) => <ResearchCard {...r} />)}
+                    {research.map((r) => (
+                        <div>
+                            <ResearchCard {...r} />
+                            {r.demo && <LiveDemo client:visible scene={r.demo.scene} label={r.demo.label} />}
+                            {r.video && (
+                                <video
+                                    class="mt-4 w-full border border-border"
+                                    src={r.video}
+                                    poster={r.poster}
+                                    controls
+                                    muted
+                                    playsinline
+                                    preload="metadata"
+                                />
+                            )}
+                        </div>
+                    ))}
                 </div>
             </section>
 
@@ -151,8 +168,13 @@ const links = [
 
             <section id="projects" class="panel">
                 <h2 class="panel-h" tabindex="0" aria-expanded="true">Projects</h2>
-                <div class="panel-b grid gap-5 md:grid-cols-2">
-                    {projects.map((proj) => <ProjectCard {...proj} />)}
+                <div class="panel-b">
+                    <div class="grid gap-5 md:grid-cols-2">
+                        {projects.map((proj) => <ProjectCard {...proj} />)}
+                    </div>
+                    {projects.filter((p) => p.demo).map((p) => (
+                        <LiveDemo client:visible scene={p.demo!.scene} label={`${p.title}, ${p.demo!.label}`} />
+                    ))}
                 </div>
             </section>
 

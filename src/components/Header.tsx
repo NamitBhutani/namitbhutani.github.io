@@ -34,7 +34,7 @@ function Clock() {
   }, []);
   return (
     <span
-      className="hidden lg:inline font-mono text-xs text-muted-foreground tabular-nums whitespace-nowrap"
+      className="hidden lg:inline font-mono text-sm text-muted-foreground tabular-nums whitespace-nowrap"
       title={`Local time for Namit (${profile.clock.city})`}
     >
       {profile.clock.city} <span className="text-foreground">{time || "--:--"}</span>
@@ -84,10 +84,10 @@ export function Header({ outliner = false }: { outliner?: boolean }) {
         ))}
       </svg>
       {/* On the home page, as wide as its three columns. */}
-      <div className={cn("mx-auto w-full max-w-7xl flex h-14 items-center justify-between px-4 sm:px-6 lg:px-10", outliner && "2xl:max-w-[88rem] xl:px-8")}>
+      <div className={cn("mx-auto w-full max-w-7xl flex h-14 items-center justify-between px-4 sm:px-6 lg:px-10", outliner && "xl:max-w-[88rem] 2xl:max-w-[100rem] xl:px-8 min-[90rem]:px-12")}>
         <div className="flex items-center gap-5 min-w-0">
           <a href="/" className="flex items-center shrink-0">
-            <span className="font-semibold tracking-tight">Namit Bhutani</span>
+            <span className="text-[17px] font-semibold tracking-tight">Namit Bhutani</span>
           </a>
           <nav aria-label="Workspaces" className="hidden md:flex items-center">
             {WORKSPACES.map((w) => (
@@ -95,7 +95,7 @@ export function Header({ outliner = false }: { outliner?: boolean }) {
                 key={w.href}
                 href={w.href}
                 aria-current={path === w.href ? "page" : undefined}
-                className="h-7 px-2.5 flex items-center text-[13px] text-muted-foreground transition-colors hover:text-foreground aria-[current=page]:bg-foreground/10 aria-[current=page]:text-foreground"
+                className="h-8 px-3 flex items-center text-[15px] text-muted-foreground transition-colors hover:text-foreground aria-[current=page]:bg-foreground/10 aria-[current=page]:text-foreground"
               >
                 {w.label}
               </a>
@@ -109,7 +109,7 @@ export function Header({ outliner = false }: { outliner?: boolean }) {
             <Search />
             <a
               href="/Namit_Bhutani_CV.pdf" target="_blank" rel="noopener noreferrer"
-              className={cn(buttonVariants({ variant: "outline", size: "default" }), "text-sm gap-1.5")}
+              className={cn(buttonVariants({ variant: "outline", size: "default" }), "text-[15px] gap-1.5")}
             >
               CV <HugeiconsIcon icon={Download01Icon} size={18} />
             </a>

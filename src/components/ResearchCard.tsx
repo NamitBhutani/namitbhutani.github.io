@@ -20,7 +20,7 @@ export function ResearchCard({
 }: ResearchCardProps) {
   return (
     <article>
-      <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-8">
         <h3 className="text-base font-semibold leading-snug">{title}</h3>
         <span className="shrink-0 font-mono text-xs text-muted-foreground">{date}</span>
       </div>

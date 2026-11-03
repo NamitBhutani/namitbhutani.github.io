@@ -40,7 +40,7 @@ const links = [
 <Layout>
     <Header client:load outliner />
 
-    <div id="page-content" class="mx-auto w-full max-w-7xl 2xl:max-w-[88rem] px-4 sm:px-6 lg:px-10 xl:px-8 py-8 lg:py-12 grid gap-8 lg:gap-12 xl:gap-8 lg:grid-cols-[18rem_minmax(0,1fr)] xl:grid-cols-[18rem_minmax(0,1fr)_17rem]">
+    <div id="page-content" class="mx-auto w-full max-w-7xl xl:max-w-[88rem] 2xl:max-w-[100rem] px-4 sm:px-6 lg:px-10 xl:px-8 min-[90rem]:px-12 py-8 lg:py-14 grid gap-10 lg:gap-16 xl:gap-14 min-[90rem]:gap-20 2xl:gap-24 lg:grid-cols-[18rem_minmax(0,1fr)] xl:grid-cols-[18rem_minmax(0,1fr)_15rem] min-[90rem]:grid-cols-[18rem_minmax(0,1fr)_16rem]">
         {/* SIDEBAR: who, status, links. Sticky on wide screens tall enough to show all of it;
             elsewhere it scrolls away and the header keeps the CV one click away.
             id + data-pixelate-layer: Firefox's pixelated header draws each sidebar panel on its
@@ -48,7 +48,7 @@ const links = [
         <aside class="self-start lg:top-20 lg:[@media(min-height:54rem)]:sticky">
             <div id="page-profile" data-pixelate-layer class="panel">
                 <div class="panel-h" tabindex="0" aria-expanded="true">Profile</div>
-                <div class="panel-b space-y-4">
+                <div class="panel-b lg:px-5 space-y-4">
                     {/* Phones: photo beside the name, so the bio starts on the first screen.
                         Wide screens: the full-width photo, with the name under it. */}
                     <div class="flex items-center gap-4 lg:block">
@@ -70,7 +70,7 @@ const links = [
                         href="/Namit_Bhutani_CV.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="flex items-center justify-center gap-2 h-10 bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors"
+                        class="flex items-center justify-center gap-2 h-10 bg-primary/10 text-primary ring-1 ring-inset ring-primary/35 font-medium hover:bg-primary/20 transition-colors"
                     >
                         <HugeiconsIcon icon={File01Icon} size={18} /> Curriculum Vitae
                     </a>
@@ -88,9 +88,9 @@ const links = [
                                         href={l.href}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        class="flex items-center gap-1.5 text-muted-foreground hover:text-primary transition-colors"
+                                        class="flex items-center gap-1 text-muted-foreground hover:text-primary transition-colors"
                                     >
-                                        <HugeiconsIcon icon={l.icon} size={16} className="shrink-0" />
+                                        <HugeiconsIcon icon={l.icon} size={15} className="shrink-0" />
                                         {l.label}
                                     </a>
                                 </li>
@@ -108,9 +108,9 @@ const links = [
         </aside>
 
         {/* MAIN */}
-        <main id="page-main" data-pixelate-layer class="min-w-0 space-y-8">
+        <main id="page-main" data-pixelate-layer class="min-w-0 space-y-14 lg:space-y-16">
             <section id="home" class="relative">
-                <p class="pt-1 pb-2 text-lg md:text-xl leading-relaxed text-muted-foreground max-w-4xl">
+                <p class="pt-1 pb-2 text-lg md:text-xl leading-relaxed text-foreground/85 dark:text-foreground/90 max-w-4xl">
                     I'm a final-year undergraduate at
                     <span class="text-foreground font-medium">BITS Pilani</span>
                     working on interactive graphics that brings rendering, simulation and modelling together,
@@ -128,18 +128,18 @@ const links = [
             </section>
 
 
-            <section id="publications" class="panel">
+            <section id="publications" class="panel panel-open">
                 <h2 class="panel-h" tabindex="0" aria-expanded="true">Publications <span class="panel-meta">{publications.length} papers</span></h2>
                 <div class="panel-b space-y-10">
                     {publications.map((p) => <PublicationItem pub={p} id={itemId("publications", p.short)} />)}
                 </div>
             </section>
 
-            <section id="news" class="panel">
+            <section id="news" class="panel panel-open">
                 <h2 class="panel-h" tabindex="0" aria-expanded="true">News <span class="panel-meta">latest {news[0].date}</span></h2>
-                <ul class="panel-b space-y-2.5">
+                <ul class="panel-b space-y-3">
                     {news.map((n) => (
-                        <li class="grid grid-cols-[5.5rem_1fr] gap-3 text-sm leading-relaxed">
+                        <li class="grid grid-cols-[5.5rem_1fr] sm:grid-cols-[7rem_1fr] gap-4 sm:gap-8 text-sm leading-relaxed">
                             <span class="font-mono text-muted-foreground">{n.date}</span>
                             <span set:html={n.html} />
                         </li>
@@ -147,9 +147,9 @@ const links = [
                 </ul>
             </section>
 
-            <section id="research" class="panel">
+            <section id="research" class="panel panel-open">
                 <h2 class="panel-h" tabindex="0" aria-expanded="true">Research <span class="panel-meta">{research.length} roles</span></h2>
-                <div class="panel-b space-y-8">
+                <div class="panel-b space-y-12">
                     {research.map((r) => (
                         <div id={itemId("research", r.short)}>
                             <ResearchCard {...r} />
@@ -170,19 +170,19 @@ const links = [
                 </div>
             </section>
 
-            <section id="experience" class="panel">
+            <section id="experience" class="panel panel-open">
                 <h2 class="panel-h" tabindex="0" aria-expanded="true">Experience <span class="panel-meta">{experience.length} roles</span></h2>
                 <div class="panel-b">
                     {experience.map((exp) => <ExperienceCard {...exp} id={itemId("experience", exp.short)} />)}
                 </div>
             </section>
 
-            <section id="projects" class="panel">
+            <section id="projects" class="panel panel-open">
                 <h2 class="panel-h" tabindex="0" aria-expanded="true">Projects <span class="panel-meta">{projects.length} repos</span></h2>
                 <div class="panel-b">
                     <ul class="divide-y divide-border">
                         {projects.map((p) => (
-                            <li id={itemId("projects", p.title)} class="grid gap-x-6 gap-y-1.5 py-4 first:pt-0 sm:grid-cols-[1fr_auto]">
+                            <li id={itemId("projects", p.title)} class="grid gap-x-12 gap-y-1.5 py-5 first:pt-0 last:pb-0 sm:grid-cols-[1fr_auto]">
                                 <div class="min-w-0">
                                     <h3 class="font-semibold">{p.title}</h3>
                                     <p class="mt-1 text-sm leading-relaxed text-muted-foreground">{p.description}</p>
@@ -209,7 +209,7 @@ const links = [
                 </div>
             </section>
 
-            <section id="contact" class="panel">
+            <section id="contact" class="panel panel-open">
                 <h2 class="panel-h" tabindex="0" aria-expanded="true">Get in touch</h2>
                 <div class="panel-b">
                     <p class="leading-relaxed max-w-2xl">
@@ -218,14 +218,14 @@ const links = [
                     </p>
                     <a
                         href={`mailto:${profile.email}`}
-                        class="mt-4 inline-flex items-center gap-2 h-10 px-4 bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors"
+                        class="mt-4 inline-flex items-center gap-2 h-10 px-4 bg-primary/10 text-primary ring-1 ring-inset ring-primary/35 font-medium hover:bg-primary/20 transition-colors"
                     >
                         <HugeiconsIcon icon={Mail01Icon} size={18} /> Email me
                     </a>
                 </div>
             </section>
 
-            <footer class="pt-2 pb-8 text-sm text-muted-foreground font-mono">
+            <footer class="pt-4 pb-8 text-sm text-muted-foreground font-mono">
                 &copy; 2026 {profile.name}
             </footer>
         </main>
@@ -234,22 +234,22 @@ const links = [
         <aside class="hidden xl:block">
             {/* Outliner, top right like Blender's: the page as a scene tree. The section on
                 screen is the selected row (src/lib/outliner.ts); a row jumps to its section. */}
-            <div id="page-outliner" data-pixelate-layer class="panel flex flex-col sticky top-20 max-h-[calc(100dvh-6rem)]">
+            <div id="page-outliner" data-pixelate-layer class="panel panel-open flex flex-col sticky top-20 max-h-[calc(100dvh-6rem)]">
                 <div class="panel-h shrink-0" tabindex="0" aria-expanded="true">Outliner</div>
-                <nav aria-label="Page sections" class="min-h-0 overflow-y-auto py-2 text-sm">
-                    <div class="flex items-center gap-2 h-9 px-4 text-[15px] text-muted-foreground">
+                <nav aria-label="Page sections" class="min-h-0 overflow-y-auto pt-3 pb-2 text-sm">
+                    <div class="flex items-center gap-2 h-9 text-[16px] text-muted-foreground">
                         <span aria-hidden="true" class="outliner-collection"></span>
                         Scene Collection
                     </div>
-                    <ul class="ml-[1.4rem] border-l border-border">
+                    <ul class="ml-[0.3rem] border-l border-border">
                         {outline.map((o) => (
                             <li data-outline-section={o.id}>
-                                <a href={`#${o.id}`} data-outline={o.id} class="outliner-row h-9 text-[15px]">
+                                <a href={`#${o.id}`} data-outline={o.id} class="outliner-row h-9 text-[16px]">
                                     {/* Expands to its entries while you're reading it. */}
                                     <span aria-hidden="true" class={o.children ? "outliner-twisty" : "w-2"}></span>
                                     <span aria-hidden="true" class="outliner-object"></span>
                                     <span class="flex-1 truncate">{o.label}</span>
-                                    {o.count !== undefined && <span class="font-mono text-xs text-muted-foreground">{o.count}</span>}
+                                    {o.count !== undefined && <span class="font-mono text-xs text-muted-foreground/70">{o.count}</span>}
                                 </a>
                                 {o.children && (
                                     <div class="outliner-children">

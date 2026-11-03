@@ -76,11 +76,14 @@ export function select(el: HTMLElement) {
   if (reducedMotion()) return;
   const css = getComputedStyle(document.documentElement);
   const color = (css.getPropertyValue("--select") || css.getPropertyValue("--primary")).trim();
+  // On a framed panel's edge; round anything unframed (open sections, entries) with some air.
+  const boxed = el.classList.contains("panel") && !el.classList.contains("panel-open");
+  const outlineOffset = boxed ? "-1px" : "6px";
   el.animate(
     [
-      { outline: `1px solid ${color}`, outlineOffset: "-1px" },
-      { outline: `1px solid ${color}`, outlineOffset: "-1px", offset: 0.35 },
-      { outline: "1px solid transparent", outlineOffset: "-1px" },
+      { outline: `1px solid ${color}`, outlineOffset },
+      { outline: `1px solid ${color}`, outlineOffset, offset: 0.35 },
+      { outline: "1px solid transparent", outlineOffset },
     ],
     { duration: 1100, easing: "ease-out" },
   );

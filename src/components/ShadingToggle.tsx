@@ -136,7 +136,7 @@ export function ShadingToggle() {
   };
 
   const btn =
-    "inline-flex h-7 w-8 items-center justify-center text-muted-foreground transition-colors hover:text-foreground aria-pressed:bg-foreground/10 aria-pressed:text-foreground";
+    "inline-flex h-8 w-9 items-center justify-center text-muted-foreground transition-colors hover:text-foreground aria-pressed:bg-foreground/10 aria-pressed:text-foreground";
 
   return (
     <>

@@ -108,11 +108,11 @@ export function Search() {
         type="button"
         onClick={show}
         aria-label="Search the site (F3)"
-        className="inline-flex items-center gap-2 h-7 px-2 lg:pr-1.5 ring-1 ring-foreground/15 text-xs text-muted-foreground transition-colors hover:text-foreground"
+        className="inline-flex items-center gap-2 h-8 px-2.5 lg:pr-1.5 ring-1 ring-foreground/15 text-sm text-muted-foreground transition-colors hover:text-foreground"
       >
-        <HugeiconsIcon icon={Search01Icon} size={14} />
+        <HugeiconsIcon icon={Search01Icon} size={16} />
         <span className="hidden lg:inline">Search</span>
-        <kbd className="hidden lg:inline font-mono text-[10px] px-1 bg-foreground/10">F3</kbd>
+        <kbd className="hidden lg:inline font-mono text-[11px] px-1 bg-foreground/10">F3</kbd>
       </button>
       {open &&
         createPortal(

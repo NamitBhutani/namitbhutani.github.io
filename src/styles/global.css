@@ -1,89 +1,92 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "@fontsource/ibm-plex-sans/400.css";
-@import "@fontsource/ibm-plex-sans/400-italic.css";
-@import "@fontsource/ibm-plex-sans/500.css";
-@import "@fontsource/ibm-plex-sans/600.css";
-@import "@fontsource/ibm-plex-sans/700.css";
+/* Variable Plex Sans, so text can sit between the static weights (body at 450). */
+@import "@fontsource-variable/ibm-plex-sans/wght.css";
+@import "@fontsource-variable/ibm-plex-sans/wght-italic.css";
 @import "@fontsource/ibm-plex-mono/400.css";
 @import "@fontsource/ibm-plex-mono/500.css";
 
 @custom-variant dark (&:is(.dark *));
 
-/* "Ink" theme. Dark is a deep ink-blue night with lamp-gold accents; light is
-   the same on warm paper with ink-blue accents. Colour comes from the live viewport
-   (Viewport.tsx), so the chrome stays quiet. */
+/* "Ink" theme. Dark is a deep, clean near-black with a faint cool cast, like Blender's
+   own UI; light is off-white paper. Both keep text crisp against the page and use one
+   clear blue accent, so the page reads sharp rather than grey. Surfaces sit close in
+   lightness so panel edges stay quiet. Colour comes from the live viewport (Viewport.tsx). */
 :root {
-    --background: oklch(0.975 0.007 85);
-    --foreground: oklch(0.22 0.03 262);
-    --card: oklch(0.995 0.003 85);
-    --card-foreground: oklch(0.22 0.03 262);
-    --popover: oklch(0.995 0.003 85);
-    --popover-foreground: oklch(0.22 0.03 262);
-    --primary: oklch(0.46 0.14 262);
-    --primary-foreground: oklch(0.985 0.005 85);
-    --secondary: oklch(0.94 0.01 85);
-    --secondary-foreground: oklch(0.22 0.03 262);
-    --muted: oklch(0.955 0.008 85);
-    --muted-foreground: oklch(0.47 0.025 262);
-    --accent: oklch(0.94 0.01 85);
-    --accent-foreground: oklch(0.22 0.03 262);
+    --background: oklch(0.988 0.003 90);
+    --foreground: oklch(0.21 0.02 262);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.21 0.02 262);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.21 0.02 262);
+    --primary: oklch(0.5 0.15 259);
+    --primary-foreground: oklch(0.99 0.003 90);
+    --secondary: oklch(0.955 0.004 260);
+    --secondary-foreground: oklch(0.21 0.02 262);
+    --muted: oklch(0.97 0.003 260);
+    --muted-foreground: oklch(0.48 0.018 262);
+    --accent: oklch(0.955 0.004 260);
+    --accent-foreground: oklch(0.21 0.02 262);
     --destructive: oklch(0.6 0.2 25);
-    --border: oklch(0.885 0.01 85);
-    --input: oklch(0.885 0.01 85);
-    --ring: oklch(0.46 0.14 262);
-    --chart-1: oklch(0.46 0.14 262);
+    --border: oklch(0.91 0.005 260);
+    --input: oklch(0.91 0.005 260);
+    --ring: oklch(0.5 0.15 259);
+    --chart-1: oklch(0.5 0.15 259);
     --chart-2: oklch(0.7 0.14 200);
     --chart-3: oklch(0.75 0.15 140);
     --chart-4: oklch(0.7 0.17 30);
     --chart-5: oklch(0.65 0.12 300);
     --radius: 0.25rem;
-    --sidebar: oklch(0.975 0.007 85);
-    --sidebar-foreground: oklch(0.22 0.03 262);
-    --sidebar-primary: oklch(0.46 0.14 262);
-    --sidebar-primary-foreground: oklch(0.985 0.005 85);
-    --sidebar-accent: oklch(0.94 0.01 85);
-    --sidebar-accent-foreground: oklch(0.22 0.03 262);
-    --sidebar-border: oklch(0.885 0.01 85);
-    --sidebar-ring: oklch(0.46 0.14 262);
+    --sidebar: oklch(0.988 0.003 90);
+    --sidebar-foreground: oklch(0.21 0.02 262);
+    --sidebar-primary: oklch(0.5 0.15 259);
+    --sidebar-primary-foreground: oklch(0.99 0.003 90);
+    --sidebar-accent: oklch(0.955 0.004 260);
+    --sidebar-accent-foreground: oklch(0.21 0.02 262);
+    --sidebar-border: oklch(0.91 0.005 260);
+    --sidebar-ring: oklch(0.5 0.15 259);
 }
 
 .dark {
-    --background: oklch(0.165 0.02 262);
-    --foreground: oklch(0.95 0.008 85);
-    --card: oklch(0.2 0.022 262);
-    --card-foreground: oklch(0.95 0.008 85);
-    --popover: oklch(0.2 0.022 262);
-    --popover-foreground: oklch(0.95 0.008 85);
-    --primary: oklch(0.78 0.11 235);
-    --primary-foreground: oklch(0.2 0.03 262);
-    --secondary: oklch(0.25 0.022 262);
-    --secondary-foreground: oklch(0.95 0.008 85);
-    --muted: oklch(0.235 0.022 262);
-    --muted-foreground: oklch(0.75 0.02 262);
-    --accent: oklch(0.25 0.022 262);
-    --accent-foreground: oklch(0.95 0.008 85);
+    --background: oklch(0.16 0.008 265);
+    --foreground: oklch(0.975 0.003 265);
+    --card: oklch(0.18 0.008 265);
+    --card-foreground: oklch(0.975 0.003 265);
+    --popover: oklch(0.2 0.008 265);
+    --popover-foreground: oklch(0.975 0.003 265);
+    --primary: oklch(0.77 0.105 238);
+    --primary-foreground: oklch(0.17 0.02 265);
+    --secondary: oklch(0.225 0.008 265);
+    --secondary-foreground: oklch(0.975 0.003 265);
+    --muted: oklch(0.19 0.008 265);
+    --muted-foreground: oklch(0.8 0.01 265);
+    --accent: oklch(0.225 0.008 265);
+    --accent-foreground: oklch(0.975 0.003 265);
     --destructive: oklch(0.6 0.2 25);
-    --border: oklch(0.31 0.025 262);
-    --input: oklch(0.31 0.025 262);
-    --ring: oklch(0.78 0.11 235);
-    --chart-1: oklch(0.78 0.11 235);
+    --border: oklch(0.255 0.01 265);
+    --input: oklch(0.255 0.01 265);
+    --ring: oklch(0.77 0.105 238);
+    --chart-1: oklch(0.77 0.105 238);
     --chart-2: oklch(0.7 0.14 200);
     --chart-3: oklch(0.75 0.15 140);
     --chart-4: oklch(0.7 0.17 30);
     --chart-5: oklch(0.65 0.12 300);
-    --sidebar: oklch(0.165 0.02 262);
-    --sidebar-foreground: oklch(0.95 0.008 85);
-    --sidebar-primary: oklch(0.78 0.11 235);
-    --sidebar-primary-foreground: oklch(0.2 0.03 262);
-    --sidebar-accent: oklch(0.25 0.022 262);
-    --sidebar-accent-foreground: oklch(0.95 0.008 85);
-    --sidebar-border: oklch(0.31 0.025 262);
-    --sidebar-ring: oklch(0.78 0.11 235);
+    --sidebar: oklch(0.16 0.008 265);
+    --sidebar-foreground: oklch(0.975 0.003 265);
+    --sidebar-primary: oklch(0.77 0.105 238);
+    --sidebar-primary-foreground: oklch(0.17 0.02 265);
+    --sidebar-accent: oklch(0.225 0.008 265);
+    --sidebar-accent-foreground: oklch(0.975 0.003 265);
+    --sidebar-border: oklch(0.255 0.01 265);
+    --sidebar-ring: oklch(0.77 0.105 238);
 }
 
 @theme inline {
-    --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+    --font-sans: "IBM Plex Sans Variable", "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+    /* Every weight a step heavier than the standard ones, so text holds up on the dark page. */
+    --font-weight-normal: 450;
+    --font-weight-medium: 540;
+    --font-weight-semibold: 640;
     --font-mono: "IBM Plex Mono", ui-monospace, monospace;
     --color-background: var(--background);
     --color-foreground: var(--foreground);
@@ -131,6 +134,19 @@
     }
     body {
         @apply font-sans bg-background text-foreground antialiased;
+        font-weight: 450;
+    }
+    /* Page text a step larger than Tailwind's scale; the navbar, menus and search keep the
+       standard sizes. Every page's content sits in #page-content. */
+    #page-content {
+        --text-xs: 0.8125rem; /* 13px */
+        --text-sm: 0.9375rem; /* 15px */
+        --text-base: 1.0625rem; /* 17px */
+        --text-lg: 1.1875rem; /* 19px */
+        --text-xl: 1.3125rem; /* 21px */
+        --text-2xl: 1.625rem; /* 26px */
+        --text-3xl: 2rem; /* 32px */
+        font-size: var(--text-base);
     }
     html {
         @apply font-sans;
@@ -180,6 +196,21 @@
     .panel-b {
         @apply p-5 md:p-6;
     }
+    /* An open panel: no box, just the header line over a hairline, and the content under it.
+       For the home page's sections and Outliner, so only the profile reads as a framed panel.
+       It still collapses like a panel. */
+    .panel-open {
+        @apply bg-transparent border-0;
+    }
+    .panel-open > .panel-h {
+        @apply px-0 h-11 bg-transparent text-[16px];
+    }
+    .panel.panel-open.collapsed > .panel-h {
+        border-bottom-color: var(--border);
+    }
+    .panel-open > .panel-b {
+        @apply px-0 pt-7 pb-0;
+    }
     /* A panel header's right-hand detail, in mono like Blender's header readouts. */
     .panel-meta {
         @apply ml-auto font-mono text-xs font-normal text-muted-foreground;
@@ -187,10 +218,11 @@
 
     /* Outliner rows (index.astro, src/lib/outliner.ts). The selected row is the section on screen. */
     .outliner-row {
-        @apply flex items-center gap-2 h-7 pl-3 pr-4 text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-foreground;
+        @apply flex items-center gap-2 h-7 pl-3 pr-3 text-muted-foreground transition-colors hover:bg-foreground/[0.035] hover:text-foreground;
     }
+    /* The selected row: a faint tint and brighter text; its square carries the accent. */
     .outliner-row[aria-current] {
-        @apply bg-primary/15 text-foreground;
+        @apply bg-foreground/[0.06] text-foreground;
     }
     /* Icons drawn in CSS: a collection is an outlined box, an object a filled one;
        the selected row's turns the selection colour. */
@@ -239,7 +271,7 @@
 }
 
 html[data-shading="solid"] {
-    --select: oklch(0.78 0.11 235);
+    --select: oklch(0.77 0.105 238);
     --background: oklch(0.34 0 0);
     --foreground: oklch(0.9 0 0);
     --card: oklch(0.4 0 0);
@@ -281,7 +313,7 @@ html[data-shading="wireframe"] {
     --border: oklch(0.5 0 0);
     --input: oklch(0.5 0 0);
     --wire: oklch(0.62 0 0 / 0.4);
-    --select: oklch(0.78 0.11 235);
+    --select: oklch(0.77 0.105 238);
 }
 html[data-shading="wireframe"] main * {
     outline: 1px solid var(--wire);

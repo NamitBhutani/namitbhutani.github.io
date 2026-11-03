@@ -35,23 +35,19 @@ export const education = [
 export const news = [
   {
     date: "Oct 2026",
-    html: 'Presented my paper at <b>Pacific Graphics 2026</b> in Singapore (talk in Session A10 and poster). It is now published in the <a href="https://doi.org/10.2312/pg.20261054">Eurographics Digital Library</a>.',
+    html: 'Presented my first-author paper at <b>Pacific Graphics 2026</b> in Singapore (talk and poster); now in the <a href="https://doi.org/10.2312/pg.20261054">Eurographics Digital Library</a>.',
   },
   {
     date: "Oct 2026",
-    html: '<i>Generative discourse parsing for Indian law</i> published in <b>Artificial Intelligence and Law</b> (Springer).',
-  },
-  {
-    date: "Aug 2026",
-    html: 'First-author paper on <b>real-time spectral photoelasticity</b> accepted at Pacific Graphics 2026.',
+    html: 'Discourse parsing paper published in <b>Artificial Intelligence and Law</b> (Springer).',
   },
   {
     date: "Jun 2026",
-    html: 'Joined the <b>Dynamic Graphics Project (DGP)</b> lab at the University of Toronto, working on structural editing of captured 3D scenes.',
+    html: 'Joined the <b>Dynamic Graphics Project</b> lab at the University of Toronto.',
   },
   {
     date: "Sep 2025",
-    html: 'Completed <b>Google Summer of Code</b> with the Blender Foundation (sculpting performance).',
+    html: 'Completed <b>Google Summer of Code</b> with Blender.',
   },
 ];
 
@@ -68,7 +64,8 @@ export type Publication = {
   video?: string;
   links: { label: string; href: string }[];
   bibtex?: string;
-  summary?: string;
+  summary?: string; // one or two lines for the home page
+  longSummary?: string; // the paper page's fuller version (falls back to summary)
 };
 
 export const publications: Publication[] = [
@@ -84,6 +81,8 @@ export const publications: Publication[] = [
     note: "Talk + poster",
     image: "/media/pg26-teaser.jpg",
     summary:
+      "Physically based photoelastic fringes at 120+ FPS on a laptop GPU: hero-wavelength sampling makes the spectral march 8.55× faster, and a stress-aware history gate removes TAA ghosting as the load changes.",
+    longSummary:
       "Physically based photoelastic fringes at over 120 FPS (1080p, laptop RTX 3070): hero-wavelength sampling of the Jones-calculus integral in one packed march (8.55× faster than the 16-wavelength loop), and a stress-aware history gate that removes TAA ghosting when the load changes.",
     links: [
       { label: "Project page", href: "/photoelasticity" },
@@ -119,7 +118,7 @@ export const publications: Publication[] = [
     year: 2026,
     image: "/media/legaltree-tree.jpg",
     summary:
-      "Turns sentences from Indian legal text into discourse trees (relations such as elaboration, condition and contrast) with fine-tuned T5 and LLM baselines, plus an interactive tool that draws the tree for any sentence.",
+      "Parses Indian legal sentences into discourse trees with a fine-tuned T5 and LLM baselines, plus an interactive tree viewer.",
     links: [
       { label: "Paper (Springer)", href: "https://link.springer.com/article/10.1007/s10506-026-09544-3" },
     ],
@@ -136,10 +135,9 @@ export const research = [
     video: "/media/dgp-structural-editing.mp4",
     poster: "/media/dgp-structural-editing.jpg",
     points: [
-      "Designing and building a library of structure models and relations that measure their parameters from a Gaussian-splat capture, so edits repeat captured units instead of stretching them; geometric gates judge each edit and an optimiser refines appearance and hole fills (in progress).",
-      "Testing where a language-model agent helps most (editing front end, segmentation) so the tool needs minimal user input.",
-      "Started from a Houdini plugin for brush-based splat painting and selection over 100K+ splats at 60 FPS (RTX 3070), with C++ ray picking through a custom BVH.",
-      "Distilled multi-view DINOv3 features into per-splat embeddings; unsupervised segmentation with similarity queries under 50 ms.",
+      "Building structure models that measure their parameters from a Gaussian-splat capture, so edits repeat captured units instead of stretching them (in progress).",
+      "Exploring where a language-model agent can replace user input, in editing and segmentation.",
+      "Earlier: a Houdini plugin for brush-based painting over 100K+ splats at 60 FPS with custom-BVH ray picking, and DINOv3-based segmentation queries under 50 ms.",
     ],
   },
   {
@@ -150,9 +148,8 @@ export const research = [
     advisors: "Prof. Tathagata Ray (BITS Pilani) & Prof. Sumanta Pattanaik (UCF)",
     demo: { scene: "photo" as const, label: "stress fringes in a loaded disk" },
     points: [
-      "Real-time spectral photoelasticity renderer in NVIDIA Falcor; first-author paper at Pacific Graphics 2026.",
-      "Developing a real-time photoelasticity pipeline for VR.",
-      "Implemented the Enfeldt & Goswami polarization model in Unity shaders and extended it to transmission through dielectrics.",
+      "Real-time spectral photoelasticity in NVIDIA Falcor (first-author paper, Pacific Graphics 2026); now bringing it to VR.",
+      "Extended the Enfeldt & Goswami polarization model in Unity shaders to transmission through dielectrics.",
     ],
   },
   {
@@ -162,9 +159,8 @@ export const research = [
     date: "Aug 2024 – Jul 2026",
     advisors: "Prof. Dipanjan Chakraborty & Prof. Prajna Upadhyay",
     points: [
-      "Discourse parsing for Indian legal text; published in Artificial Intelligence and Law (2026).",
-      "Built the group's demo comparing a fine-tuned T5 parser with GPT-4 and GPT-4o prompting: interactive discourse trees, Graphene triplet extraction, and retrieval QA over 1,000+ legal documents.",
-      "For the journal revision, built the delinearization evaluation (BLEU-4, BERTScore, ROUGE) showing that linearized trees keep all of a sentence's information.",
+      "Built the group's demo comparing a fine-tuned T5 parser with GPT-4/4o: discourse trees, triplet extraction and retrieval QA over 1,000+ legal documents.",
+      "Built the evaluation for the journal version (AI and Law, 2026) showing linearized trees keep a sentence's full information.",
     ],
   },
 ];
@@ -176,9 +172,9 @@ export const experience = [
     company: "Blender Foundation",
     period: "Jun 2025 – Sep 2025",
     description: [
-      "Sculpt-mode performance on meshes with over 1M vertices, mentored by Hans Goudey; shipped in Blender 5.0 after core-developer review.",
-      "Spatially reordered mesh data for cache locality and cached the BVH built during reordering, so entering sculpt mode on a 2.6M-vertex mesh went from 170 ms to 25 ms, and BVH rebuilds became 2.4× faster.",
-      "ZSTD-compressed sculpt undo data in the background, making it at least 2× smaller (Blender 5.0 release notes), and added undo memory tracking to the Python API and performance tests.",
+      "Sculpt-mode performance for 1M+ vertex meshes, mentored by Hans Goudey; shipped in Blender 5.0.",
+      "Reordered mesh data for cache locality and reused its BVH: entering sculpt mode on a 2.6M-vertex mesh went from 170 ms to 25 ms, and BVH rebuilds got 2.4× faster.",
+      "Background ZSTD compression made sculpt undo data at least 2× smaller.",
     ],
     skills: ["C++", "Performance", "Blender internals"],
   },
@@ -187,7 +183,7 @@ export const experience = [
     short: "SWE Intern · Vidcentum",
     company: "Vidcentum Technologies",
     period: "May 2024 – Jul 2024",
-    description: ["Built an async retrieval API for ML applications (<100 ms on 50K+ documents)."],
+    description: ["Built an async retrieval API for ML applications (<100 ms over 50K+ documents)."],
     skills: [],
   },
 ];
@@ -196,7 +192,7 @@ export const projects = [
   {
     title: "procLand",
     description:
-      "GPU-accelerated 3D terrain generator using OpenGL compute shaders. Marching Cubes on the GPU with an optimized SSBO pipeline, rendering 100K+ polygons.",
+      "GPU terrain generator: Marching Cubes in OpenGL compute shaders, rendering 100K+ polygons.",
     tags: ["C++", "OpenGL", "Compute Shaders", "GLSL"],
     github: "https://github.com/NamitBhutani/procLan",
     demo: { scene: "terrain" as const, label: "ray-marched noise terrain" },
@@ -204,14 +200,14 @@ export const projects = [
   {
     title: "curvesandSurfacesGL",
     description:
-      "Bézier curves and surfaces in OpenGL: an interactive curve editor that visualises De Casteljau's algorithm, and an animated playground scene with an editable Bézier slide.",
+      "Interactive Bézier curve and surface editor that visualises De Casteljau's algorithm.",
     tags: ["C++", "OpenGL", "GLFW", "GLM"],
     github: "https://github.com/NamitBhutani/curvesandSurfacesGL",
   },
   {
     title: "radialGL",
     description:
-      "Interactive 2D tree visualization engine implementing the radial layout algorithm, with real-time rerooting and smooth animations.",
+      "Radial-layout tree visualiser with real-time rerooting and animation.",
     tags: ["C++", "OpenGL", "ImGui", "Algorithms"],
     github: "https://github.com/NamitBhutani/radialgl",
   },

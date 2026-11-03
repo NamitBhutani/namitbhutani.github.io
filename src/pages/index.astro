@@ -41,9 +41,11 @@ const links = [
 <Layout>
     <Header client:load />
 
-    <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-10 py-8 lg:py-12 grid gap-8 lg:gap-12 lg:grid-cols-[18rem_1fr]">
+    <div id="page-content" class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-10 py-8 lg:py-12 grid gap-8 lg:gap-12 lg:grid-cols-[18rem_1fr]">
         {/* SIDEBAR: who, status, links. Sticky on wide screens so the CV is always one click away. */}
-        <aside class="lg:sticky lg:top-20 self-start">
+        {/* id + data-pixelate-layer: Firefox's pixelated header draws this column on its own
+            (src/lib/pixelate.ts), since it misplaces sticky content inside a bigger copy. */}
+        <aside id="page-aside" data-pixelate-layer class="lg:sticky lg:top-20 self-start">
             <div class="panel">
                 <div class="panel-h" tabindex="0" aria-expanded="true">Profile</div>
                 <div class="panel-b space-y-5">
@@ -97,7 +99,7 @@ const links = [
         </aside>
 
         {/* MAIN */}
-        <main class="min-w-0 space-y-8">
+        <main id="page-main" data-pixelate-layer class="min-w-0 space-y-8">
             <section id="home" class="relative">
                 <p class="pt-1 pb-2 text-lg md:text-xl leading-relaxed text-muted-foreground max-w-4xl">
                     I'm a final-year undergraduate at

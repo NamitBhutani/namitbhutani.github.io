@@ -165,7 +165,7 @@
     .panel.collapsed > .panel-h {
         border-bottom-color: transparent;
     }
-    .panel.collapsed > .panel-h::before {
+    .panel-h[aria-expanded="false"]::before {
         transform: rotate(-90deg);
     }
     .panel-h::before {
@@ -258,4 +258,63 @@ html[data-shading="wireframe"] main section[id]::before {
     font-size: 10px;
     letter-spacing: 0.02em;
     color: var(--select);
+}
+
+/* Frosted surfaces pixelate what's behind them instead of blurring it (src/lib/pixelate.ts;
+   the #pixelate SVG filter lives in Header.tsx). Unlayered, so it wins over Tailwind's
+   backdrop-blur utilities. */
+html[data-pixelate="backdrop"] .pixelate {
+    -webkit-backdrop-filter: url(#pixelate);
+    backdrop-filter: url(#pixelate);
+}
+/* Firefox: a filtered live image of the page under the content, the element's own tint over it. */
+html[data-pixelate="moz"] .pixelate {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    isolation: isolate;
+}
+.pixelate-image,
+.pixelate-tint {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    border-radius: inherit;
+}
+.pixelate-image {
+    background-repeat: no-repeat;
+    filter: url(#pixelate);
+}
+.pixelate-tint {
+    background-color: inherit;
+}
+
+/* Rerender (src/lib/motion.ts): a page-wide switch redraws the content low-res first, then
+   refines, like a viewport render pass. The new state shows at once in 8px, 4px, then 2px
+   blocks; the #resolve-* filters are in Header.tsx. */
+@keyframes rerender {
+    0%,
+    33% {
+        filter: url(#resolve-8);
+    }
+    34%,
+    66% {
+        filter: url(#resolve-4);
+    }
+    67%,
+    100% {
+        filter: url(#resolve-2);
+    }
+}
+#page-content.rerendering {
+    animation: rerender 180ms linear;
+}
+.rerender-canvas canvas {
+    animation: rerender 240ms linear;
+}
+@media (prefers-reduced-motion: reduce) {
+    #page-content.rerendering,
+    .rerender-canvas canvas {
+        animation: none;
+    }
 }

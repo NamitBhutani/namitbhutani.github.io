@@ -396,6 +396,8 @@ export function Viewport({ fixed, embedded = false }: { fixed?: SceneId; embedde
   const [stats, setStats] = React.useState<SplatStats>({ subject: 0, context: 0, parts: "" });
   const [failed, setFailed] = React.useState(false);
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
+  // The splats toolbars pixelate the canvas under them (src/lib/pixelate.ts needs its id).
+  const canvasId = "viewport-canvas-" + React.useId().replace(/[^a-zA-Z0-9_-]/g, "");
   const brushRef = React.useRef<HTMLDivElement>(null);
   const lassoRef = React.useRef<SVGPolygonElement>(null);
   const sceneRef = React.useRef(scene);
@@ -782,7 +784,7 @@ export function Viewport({ fixed, embedded = false }: { fixed?: SceneId; embedde
 
   const current = SCENES.find((s) => s.id === scene)!;
   const tab =
-    "h-7 px-2.5 font-mono text-xs text-muted-foreground transition-colors hover:text-foreground aria-selected:bg-primary aria-selected:text-primary-foreground";
+    "h-7 px-1.5 sm:px-2.5 font-mono text-xs text-muted-foreground transition-colors hover:text-foreground aria-selected:bg-primary aria-selected:text-primary-foreground";
   const tb =
     "h-6 px-2 text-muted-foreground transition-colors hover:text-foreground aria-pressed:bg-foreground/15 aria-pressed:text-foreground";
 
@@ -790,8 +792,8 @@ export function Viewport({ fixed, embedded = false }: { fixed?: SceneId; embedde
     <section id={embedded ? undefined : "viewport"} className={embedded ? "border border-border" : "panel"} aria-label="Interactive viewport">
       {!embedded && (
       <div className="panel-h pr-1.5" tabIndex={0} aria-expanded="true">
-        <span className="flex-1">Viewport</span>
-        <div role="tablist" aria-label="Scene" className="flex ring-1 ring-foreground/15">
+        <span className="flex-1 min-w-0 truncate">Viewport</span>
+        <div role="tablist" aria-label="Scene" className="flex shrink-0 ring-1 ring-foreground/15">
           {SCENES.map((s) => (
             <button key={s.id} role="tab" type="button" aria-selected={scene === s.id} className={tab} onClick={() => setScene(s.id)}>
               {s.label}
@@ -803,6 +805,7 @@ export function Viewport({ fixed, embedded = false }: { fixed?: SceneId; embedde
       <div className="relative overflow-hidden">
         <canvas
           ref={canvasRef}
+          id={canvasId}
           className={
             "block w-full " + (embedded ? "aspect-[4/3] sm:aspect-[16/6] " : "aspect-[4/3] sm:aspect-[16/7] ") +
             (scene === "splats" ? "cursor-crosshair" : "cursor-grab active:cursor-grabbing")
@@ -819,7 +822,14 @@ export function Viewport({ fixed, embedded = false }: { fixed?: SceneId; embedde
           style={{ width: BRUSH * 2, height: BRUSH * 2 }}
           className="pointer-events-none absolute left-0 top-0 rounded-full ring-1 ring-foreground/80 opacity-0 transition-opacity"
         />
-        <div aria-hidden="true" className="pointer-events-none absolute left-3 top-2.5 font-mono text-[11px] leading-snug text-foreground/70">
+        <div
+          aria-hidden="true"
+          className={
+            "pointer-events-none absolute left-3 top-2.5 font-mono text-[11px] leading-snug text-foreground/70 " +
+            // On a phone the splats toolbar spans the top edge and would sit on this label.
+            (scene === "splats" ? "hidden sm:block" : "")
+          }
+        >
           User Perspective
           <br />
           (1) Scene | {current.object}
@@ -827,12 +837,12 @@ export function Viewport({ fixed, embedded = false }: { fixed?: SceneId; embedde
         {scene === "splats" && (
           <>
             <div className="absolute right-2 top-2 flex flex-wrap justify-end items-center gap-1.5 font-mono text-[11px]">
-              <div className="flex ring-1 ring-foreground/15 bg-background/70 backdrop-blur">
+              <div className="flex ring-1 ring-foreground/15 bg-background/70 backdrop-blur pixelate" data-pixelate-src={canvasId}>
                 <button type="button" className={tb} aria-pressed={tool === "select"} onClick={() => setTool("select")}>Select</button>
                 <button type="button" className={tb} aria-pressed={tool === "paint"} onClick={() => setTool("paint")}>Paint</button>
               </div>
               {tool === "paint" && (
-                <div className="flex items-center gap-1 h-6 px-1.5 ring-1 ring-foreground/15 bg-background/70 backdrop-blur">
+                <div className="flex items-center gap-1 h-6 px-1.5 ring-1 ring-foreground/15 bg-background/70 backdrop-blur pixelate" data-pixelate-src={canvasId}>
                   {PAINTS.map((p, k) => (
                     <button
                       key={p.name}
@@ -847,7 +857,7 @@ export function Viewport({ fixed, embedded = false }: { fixed?: SceneId; embedde
                   ))}
                 </div>
               )}
-              <div className="flex ring-1 ring-foreground/15 bg-background/70 backdrop-blur">
+              <div className="flex ring-1 ring-foreground/15 bg-background/70 backdrop-blur pixelate" data-pixelate-src={canvasId}>
                 <button type="button" className={tb} onClick={() => actions.current.swap()} title="Swap subject and context">Swap</button>
                 <button type="button" className={tb} onClick={() => actions.current.clear()} title="Clear the selection and paint">Clear</button>
               </div>

@@ -1,5 +1,6 @@
 import * as React from "react";
-import { createPortal } from "react-dom";
+import { createPortal, flushSync } from "react-dom";
+import { rerender } from "@/lib/motion";
 
 // Viewport shading modes, after Blender's header: Wireframe, Solid, Rendered, plus a
 // Statistics overlay. The mode lives on <html data-shading> and global.css styles it.
@@ -91,7 +92,7 @@ function Stats({ mode }: { mode: Mode }) {
     <div
       role="status"
       aria-live="off"
-      className="hidden md:flex fixed bottom-3 right-3 z-50 items-center gap-3 font-mono text-[11px] h-7 px-3 bg-background/85 backdrop-blur ring-1 ring-foreground/15 text-muted-foreground"
+      className="hidden md:flex fixed bottom-3 right-3 z-50 items-center gap-3 font-mono text-[11px] h-7 px-3 bg-background/85 backdrop-blur pixelate ring-1 ring-foreground/15 text-muted-foreground"
     >
       {rows.map(([k, v]) => (
         <span key={k} className="whitespace-nowrap">
@@ -100,6 +101,12 @@ function Stats({ mode }: { mode: Mode }) {
       ))}
     </div>
   );
+}
+
+function applyShading(mode: Mode) {
+  const root = document.documentElement;
+  if (mode === "rendered") root.removeAttribute("data-shading");
+  else root.setAttribute("data-shading", mode);
 }
 
 export function ShadingToggle() {
@@ -117,11 +124,16 @@ export function ShadingToggle() {
     setMounted(true);
   }, []);
 
-  React.useEffect(() => {
-    const root = document.documentElement;
-    if (mode === "rendered") root.removeAttribute("data-shading");
-    else root.setAttribute("data-shading", mode);
-  }, [mode]);
+  React.useEffect(() => applyShading(mode), [mode]);
+
+  // Switching redraws the page low-res first, then sharp, like the viewport re-rendering.
+  const switchTo = (m: Mode) => {
+    if (m === mode) return;
+    rerender(() => {
+      applyShading(m);
+      flushSync(() => setMode(m));
+    });
+  };
 
   const btn =
     "inline-flex h-7 w-8 items-center justify-center text-muted-foreground transition-colors hover:text-foreground aria-pressed:bg-foreground/10 aria-pressed:text-foreground";
@@ -137,7 +149,7 @@ export function ShadingToggle() {
               className={btn}
               aria-pressed={mode === m.id}
               title={`${m.label} shading`}
-              onClick={() => setMode(m.id)}
+              onClick={() => switchTo(m.id)}
             >
               {m.icon}
               <span className="sr-only">{m.label} shading</span>

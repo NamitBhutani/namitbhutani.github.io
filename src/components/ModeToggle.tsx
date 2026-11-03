@@ -1,7 +1,9 @@
 import * as React from "react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Moon02Icon, Sun03Icon } from "@hugeicons/core-free-icons";
+import { flushSync } from "react-dom";
 import { Button } from "@/components/ui/button";
+import { rerender } from "@/lib/motion";
 
 export function ModeToggle() {
   const [theme, setTheme] = React.useState<"light" | "dark">("light");
@@ -14,12 +16,11 @@ export function ModeToggle() {
 
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-
-    // Apply class
-    document.documentElement.classList.toggle("dark", newTheme === "dark");
-
-    // Save preference
+    // Redraw low-res first, then sharp, like the viewport re-rendering (src/lib/motion.ts).
+    rerender(() => {
+      document.documentElement.classList.toggle("dark", newTheme === "dark");
+      flushSync(() => setTheme(newTheme));
+    });
     localStorage.setItem("theme", newTheme);
   };
 

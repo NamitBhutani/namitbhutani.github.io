@@ -3,13 +3,14 @@ import type { Publication } from "../data/profile";
 
 interface Props {
     pub: Publication;
+    id?: string;
 }
 
-const { pub } = Astro.props;
+const { pub, id } = Astro.props;
 const me = "Namit Bhutani";
 ---
 
-<article class={pub.video || pub.image ? "grid gap-5 md:grid-cols-[240px_1fr] items-start" : "block"}>
+<article id={id} class={pub.video || pub.image ? "grid gap-5 md:grid-cols-[240px_1fr] xl:grid-cols-[200px_1fr] 2xl:grid-cols-[240px_1fr] items-start" : "block"}>
     {
         pub.video || pub.image ? (
             <a

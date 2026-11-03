@@ -11,6 +11,8 @@ export const profile = {
   // Paste your Google Scholar profile URL here once it exists; the link appears automatically.
   scholar: "https://scholar.google.com/citations?user=CUdqWqMAAAAJ",
   location: "Hyderabad, India",
+  // The header's clock: where you are now (Toronto through the DGP internship).
+  clock: { city: "Toronto", timeZone: "America/Toronto" },
   interests: [
     "Rendering",
     "Gaussian splatting",
@@ -56,6 +58,7 @@ export const news = [
 export type Publication = {
   id: string;
   title: string;
+  short: string; // the Outliner's row
   authors: string[]; // "Namit Bhutani" is highlighted automatically
   venue: string;
   venueShort: string;
@@ -71,6 +74,7 @@ export type Publication = {
 export const publications: Publication[] = [
   {
     id: "bhutani2026photoelasticity",
+    short: "Spectral Photoelasticity",
     title:
       "Real-Time Spectral Photoelasticity via Stochastic Hero-Wavelength Ray Marching and Stress-Aware Temporal Reprojection",
     authors: ["Namit Bhutani", "Tathagata Ray", "Sumanta Pattanaik"],
@@ -99,6 +103,7 @@ export const publications: Publication[] = [
   {
     id: "cr2026discourse",
     title: "Generative Discourse Parsing for Indian Law",
+    short: "Discourse Parsing",
     authors: [
       "Chaitra C R",
       "Namit Bhutani",
@@ -124,6 +129,7 @@ export const publications: Publication[] = [
 export const research = [
   {
     title: "Structural Editing of Captured Scenes (DGP Lab, University of Toronto)",
+    short: "Structural Editing · DGP",
     role: "Research Intern",
     date: "Jun 2026 – Present",
     advisors: "Prof. Karan Singh",
@@ -138,6 +144,7 @@ export const research = [
   },
   {
     title: "Real-Time Rendering of Polarized Light",
+    short: "Polarized Light",
     role: "Undergraduate Researcher",
     date: "Aug 2025 – May 2026",
     advisors: "Prof. Tathagata Ray (BITS Pilani) & Prof. Sumanta Pattanaik (UCF)",
@@ -150,6 +157,7 @@ export const research = [
   },
   {
     title: "LegalTree: Discourse Parsing for Indian Law",
+    short: "LegalTree",
     role: "Undergraduate Researcher",
     date: "Aug 2024 – Jul 2026",
     advisors: "Prof. Dipanjan Chakraborty & Prof. Prajna Upadhyay",
@@ -164,6 +172,7 @@ export const research = [
 export const experience = [
   {
     role: "Google Summer of Code Contributor",
+    short: "GSoC · Blender",
     company: "Blender Foundation",
     period: "Jun 2025 – Sep 2025",
     description: [
@@ -175,6 +184,7 @@ export const experience = [
   },
   {
     role: "Software Engineering Intern",
+    short: "SWE Intern · Vidcentum",
     company: "Vidcentum Technologies",
     period: "May 2024 – Jul 2024",
     description: ["Built an async retrieval API for ML applications (<100 ms on 50K+ documents)."],
@@ -190,6 +200,13 @@ export const projects = [
     tags: ["C++", "OpenGL", "Compute Shaders", "GLSL"],
     github: "https://github.com/NamitBhutani/procLan",
     demo: { scene: "terrain" as const, label: "ray-marched noise terrain" },
+  },
+  {
+    title: "curvesandSurfacesGL",
+    description:
+      "Bézier curves and surfaces in OpenGL: an interactive curve editor that visualises De Casteljau's algorithm, and an animated playground scene with an editable Bézier slide.",
+    tags: ["C++", "OpenGL", "GLFW", "GLM"],
+    github: "https://github.com/NamitBhutani/curvesandSurfacesGL",
   },
   {
     title: "radialGL",

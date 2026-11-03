@@ -10,7 +10,7 @@
 // on the page, else #page-content (each page's content, minus the header). Each source is its
 // own -moz-element image placed where that element really is: Firefox draws a sticky element
 // at a stale spot inside a copy of its parent (the home page's sidebar photo showed up in the
-// header), so a page with a sticky column lists its columns as separate layers.
+// header), so a page with sticky parts lists them, and what's around them, as separate layers.
 
 export function setupPixelate(): () => void {
   const root = document.documentElement;

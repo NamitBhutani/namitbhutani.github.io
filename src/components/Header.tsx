@@ -103,7 +103,7 @@ export function Header({ outliner = false }: { outliner?: boolean }) {
           </nav>
         </div>
 
-        <div className="flex items-center gap-3 lg:gap-4">
+        <div className="flex items-center gap-2 sm:gap-3 lg:gap-4">
           <Clock />
           <div className="hidden md:flex items-center gap-3 lg:gap-4">
             <Search />
@@ -114,11 +114,11 @@ export function Header({ outliner = false }: { outliner?: boolean }) {
               CV <HugeiconsIcon icon={Download01Icon} size={18} />
             </a>
           </div>
-          <div className="hidden md:block">
-            <ShadingToggle />
-          </div>
+          <ShadingToggle />
           <ModeToggle />
-          <div className="md:hidden">
+          {/* The menu (an Outliner) wherever the page's own Outliner isn't shown: phones, and on
+              the home page every width below the three-column layout (xl). */}
+          <div className={outliner ? "xl:hidden" : "md:hidden"}>
             <Sheet>
               {/* The trigger is the button itself; a <button> inside it broke hydration. */}
               <SheetTrigger className={cn(buttonVariants({ variant: "ghost", size: "icon" }))}>

@@ -438,7 +438,7 @@ html[data-pixelate="moz"] .pixelate {
     animation: unfold 260ms 80ms cubic-bezier(0.2, 0, 0, 1) both;
 }
 .outliner-sheet[data-closed] {
-    animation: sheet-out 180ms cubic-bezier(0.4, 0, 1, 1) both;
+    animation: sheet-out 220ms cubic-bezier(0.4, 0, 1, 1) both;
 }
 .outliner-sheet[data-closed] nav {
     animation: fold 110ms cubic-bezier(0.4, 0, 1, 1) both;
@@ -456,6 +456,7 @@ html[data-pixelate="moz"] .pixelate {
     60% {
         backdrop-filter: url(#resolve-4);
     }
+    85%,
     100% {
         backdrop-filter: url(#pixelate);
     }
@@ -470,8 +471,42 @@ html[data-pixelate="moz"] .pixelate {
     60% {
         filter: url(#resolve-4);
     }
+    85%,
     100% {
         filter: url(#pixelate);
+    }
+}
+/* Closing runs the dissolve backwards. These need names of their own: switching an element
+   from the opening animation to the same name in reverse doesn't restart it, it only flips
+   the finished animation, which then sits at its start (no pixelation) from the first frame. */
+@keyframes undissolve-backdrop {
+    0% {
+        backdrop-filter: url(#pixelate);
+    }
+    15% {
+        backdrop-filter: url(#resolve-4);
+    }
+    40% {
+        backdrop-filter: url(#resolve-2);
+    }
+    70%,
+    100% {
+        backdrop-filter: none;
+    }
+}
+@keyframes undissolve-copy {
+    0% {
+        filter: url(#pixelate);
+    }
+    15% {
+        filter: url(#resolve-4);
+    }
+    40% {
+        filter: url(#resolve-2);
+    }
+    70%,
+    100% {
+        filter: none;
     }
 }
 @keyframes tint-in {
@@ -479,20 +514,31 @@ html[data-pixelate="moz"] .pixelate {
         opacity: 0;
     }
 }
+/* Explicit at both ends: while closing, the overlay's own opacity is already 0
+   (data-ending-style:opacity-0), so a fade to the underlying value would go 0 to 0. */
+@keyframes tint-out {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
 html[data-pixelate="backdrop"] [data-slot="sheet-overlay"][data-open] {
     animation: dissolve-backdrop 220ms steps(1, end) both, tint-in 220ms ease-out;
 }
 html[data-pixelate="backdrop"] [data-slot="sheet-overlay"][data-closed] {
-    animation: dissolve-backdrop 180ms steps(1, end) reverse both;
+    /* the fade also outranks the overlay's data-ending-style:opacity-0, which hid it at once */
+    animation: undissolve-backdrop 220ms steps(1, end) both, tint-out 220ms ease-in both;
 }
 html[data-pixelate="moz"] [data-slot="sheet-overlay"][data-open] .pixelate-image {
     animation: dissolve-copy 220ms steps(1, end) both;
 }
 html[data-pixelate="moz"] [data-slot="sheet-overlay"][data-closed] {
-    animation: tint-in 180ms reverse both;
+    animation: tint-out 220ms ease-in both;
 }
 html[data-pixelate="moz"] [data-slot="sheet-overlay"][data-closed] .pixelate-image {
-    animation: dissolve-copy 180ms steps(1, end) reverse both;
+    animation: undissolve-copy 220ms steps(1, end) both;
 }
 
 .search-pop {

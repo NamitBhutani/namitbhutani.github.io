@@ -26,9 +26,18 @@ export function rerender(update: () => void) {
   const top = Math.max(0, -r.top);
   const filters = document.querySelectorAll<SVGFilterElement>("filter[id^='resolve-']");
   const region = { x: 0, y: top, width: r.width, height: Math.min(innerHeight, r.height - top) };
+  // The grid's seed pixel (feFlood, half a block in) has to sit inside the region too:
+  // Chrome clips it to the region before tiling, so a seed left at the top of the page
+  // tiles nothing once you've scrolled, and the content draws blank.
+  const seed = (f: SVGFilterElement, y: number) => {
+    const flood = f.querySelector("feFlood");
+    const half = Number(f.id.slice("resolve-".length)) / 2;
+    flood?.setAttribute("y", String(y + half));
+  };
   filters.forEach((f) => {
     f.setAttribute("filterUnits", "userSpaceOnUse");
     for (const [k, v] of Object.entries(region)) f.setAttribute(k, String(v));
+    seed(f, top);
   });
   content.classList.remove("rerendering");
   void content.offsetWidth; // restart the animation on a quick second switch
@@ -41,6 +50,7 @@ export function rerender(update: () => void) {
       filters.forEach((f) => {
         f.removeAttribute("filterUnits");
         for (const [k, v] of Object.entries({ x: 0, y: 0, width: "100%", height: "100%" })) f.setAttribute(k, String(v));
+        seed(f, 0);
       });
     },
     { once: true },

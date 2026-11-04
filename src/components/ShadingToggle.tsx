@@ -136,7 +136,7 @@ export function ShadingToggle() {
   };
 
   const btn =
-    "inline-flex h-8 w-9 items-center justify-center text-muted-foreground transition-colors hover:text-foreground aria-pressed:bg-foreground/10 aria-pressed:text-foreground";
+    "inline-flex h-8 w-8 md:w-9 items-center justify-center text-muted-foreground transition-colors hover:text-foreground aria-pressed:bg-foreground/10 aria-pressed:text-foreground";
 
   return (
     <>
@@ -158,7 +158,7 @@ export function ShadingToggle() {
         </div>
         <button
           type="button"
-          className={btn + " ring-1 ring-foreground/15"}
+          className={btn + " max-md:hidden ring-1 ring-foreground/15"}
           aria-pressed={stats}
           title="Statistics overlay"
           onClick={() => setStats((s) => !s)}

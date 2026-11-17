@@ -129,7 +129,7 @@ export const research = [
   {
     title: "Structural Editing of Captured Scenes (DGP Lab, University of Toronto)",
     short: "Structural Editing · DGP",
-    role: "Research Intern",
+    role: "Visiting Researcher",
     date: "Jun 2026 – Present",
     advisors: "Prof. Karan Singh",
     video: "/media/dgp-structural-editing.mp4",
